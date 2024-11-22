@@ -1,0 +1,391 @@
+
+Vreau cod Python pentru urmatoarea problema. Am aceste 3 fisiere:
+
+with open(r'd:/3/ro/incotro-vezi-tu-privire.html', 'r', encoding='utf-8') as file:
+    ro_content = file.read()
+
+with open(r'd:/3/en/where-do-you-see-look.html', 'r', encoding='utf-8') as file:
+    en_content = file.read()
+
+with open(r'd:\3\Output\where-do-you-see-look.html', 'w', encoding='utf-8') as file:
+    file.write(en_content)
+-------
+
+
+Deci in \RO am asa:
+
+<!-- ARTICOL START --> 
+<p class="text_obisnuit"><span class="text_obisnuit2">Stiu ca este dificil sa conduci la inceput, </span>dar dupa 10 luni inveti.</p> 
+<p class="text_obisnuit2">Imi place sa merg la scoala si sa invat, mai ales in timpul saptamanii.</p> 
+<p class="text_obisnuit">Sunt un bun conducator auto, dar am facut si greseli din care am invatat.</p> 
+<p class="text_obisnuit">În fond, cele scrise de mine, sunt adevarate.</p> 
+<p class="text_obisnuit"><span class="text_obisnuit2">Ma iubesti?</span> Cat de mult? </p> 
+<p class="text_obisnuit">Iubesc sa conduc masina.</p> 
+<p class="text_obisnuit"><span class="text_obisnuit2">Stiu ca este dificil sa conduci la inceput, </span>dar dupa 4-5 luni inveti.</p> 
+<p class="text_obisnuit">Totul se repetă, chiar și ochii care nu se vad.</p> 
+<p class="text_obisnuit2">BEE servesc o cafea 2 mai buna</p> 
+<!-- ARTICOL FINAL -->
+
+In \EN am asa:
+
+<!-- ARTICOL START -->
+<p class="text_obisnuit2">I like going to school and learning, especially during the week.</p>
+<p class="text_obisnuit">I'm a good driver, but I've also made mistakes that I've learned from.</p>
+<p class="text_obisnuit">Basically, what I wrote is true.</p>
+<p class="text_obisnuit">I love driving.</p>
+<p class="text_obisnuit"><span class="text_obisnuit2">I know it's difficult to drive at first, </span> but after 4-5 months you learn.</p>
+<p class="text_obisnuit">Everything is repeated, even the eyes that can't see.</p>
+<!-- ARTICOL FINAL -->
+
+OUTPUT (rezultatul dorit):
+
+<!-- ARTICOL START -->
+<p class="text_obisnuit"><span class="text_obisnuit2">Stiu ca este dificil sa conduci la inceput, </span>dar dupa 10 luni inveti.</p> 
+<p class="text_obisnuit2">I like going to school and learning, especially during the week.</p>
+<p class="text_obisnuit">I'm a good driver, but I've also made mistakes that I've learned from.</p>
+<p class="text_obisnuit">Basically, what I wrote is true.</p>
+<p class="text_obisnuit"><span class="text_obisnuit2">Ma iubesti?</span> Cat de mult? </p> 
+<p class="text_obisnuit">I love driving.</p>
+<p class="text_obisnuit"><span class="text_obisnuit2">I know it's difficult to drive at first, </span> but after 4-5 months you learn.</p>
+<p class="text_obisnuit">Everything is repeated, even the eyes that can't see.</p>
+<p class="text_obisnuit2">BEE servesc o cafea 2 mai buna</p> 
+<!-- ARTICOL FINAL -->
+
+------------
+
+
+
+CUM AM GANDIT EU REZOLVAREA PROBLEMEI. Deci, codul trebuie sa faca 3 numerotari:
+
+Prima. Calculeaza numarul total de taguri din RO si din EN.
+Doi. Calculeaza numarul liniei si totodata denumirea tagului de pe acea linie.
+
+Am atribuit fiecarui tag in parte o cifra si o litera.
+
+Litera "A" este pentru tagurile de forma  <p class="text_obisnuit"><span class="text_obisnuit2">(.*?)</span>(.*?)</p> 
+Litera "B" este pentru tagurile de forma   <p class="text_obisnuit2">(.*?)</p> 
+Litera "C" este pentru tagurile de forma  <p class="text_obisnuit">(.*?)</p> 
+
+
+Intre <!-- ARTICOL START --> si <!-- ARTICOL FINAL --> am considerat astfel:
+    
+RO:
+
+<!-- ARTICOL START --> 
+1(A) <p class="text_obisnuit"><span class="text_obisnuit2">(.*?)</span>(.*?)</p> 
+2(B) <p class="text_obisnuit2">(.*)</p> 
+3(C) <p class="text_obisnuit">(.*?)</p> 
+4(C) <p class="text_obisnuit">(.*?)</p> 
+5(A) <p class="text_obisnuit"><span class="text_obisnuit2">(.*?)</span>(.*?)</p> 
+6(C) <p class="text_obisnuit">(.*?)</p> 
+7(A) <p class="text_obisnuit"><span class="text_obisnuit2">(.*?)</span>(.*?)</p>  
+8(C) <p class="text_obisnuit">(.*?)</p> 
+9(B) <p class="text_obisnuit2">(.*)</p> 
+<!-- ARTICOL FINAL -->
+
+Deci in RO am asa:
+3 instante de tipul (A)
+2 instante de tipul (B)
+4 instante de tipul (C)
+
+In EN am asa:
+
+<!-- ARTICOL START --> 
+1(B) pe prima linie am asa <p class="text_obisnuit2">(.*?)</p>
+2(C) pe a doua linie  <p class="text_obisnuit">(.*?)</p>
+3(C) pe a treia linie  <p class="text_obisnuit">(.*?)</p>
+4(C) pe a patra linie <p class="text_obisnuit">(.*?)</p>
+5(A) pe a cincea linie  <p class="text_obisnuit"><span class="text_obisnuit2">(.*?)</span>(.*?)</p>
+5(C) pe a sasea linie <p class="text_obisnuit">(.*?)</p>
+<!-- ARTICOL FINAL -->
+
+Deci in EN am asa:
+1 instanta de tipul (A)
+1 instanta de tipul (B)
+4 instante de tipul (C)
+
+Apoi, trebuie sa mai adaugam si al treilea tip de identificator grecesc impartit in 3 parti, care reprezinta rezultatul adunarii cuvintelor din fiecare tag: 
+    
+α \alpha (tagul cuprinde mai putin de 7 cuvinte )
+β \beta  (numarul cuvintelor din tag este cuprins intre  7 si 14 cuvinte )
+γ \gamma (tagul cuprinde mai mult de 14 cuvinte )
+
+Suplimentar, ar fi bine sa avem 4 identificatori: 
+
+Numarul liniei(Litera)(Greceste)# 
+
+# = adăugăm un hash sau un identificator unic pentru fiecare tag bazat pe primele cuvinte
+Exemplu: 1(A)(β)# 
+
+    return {
+        'number': line_number,
+        'type': tag_type,
+        'greek': greek_id,
+        'hash': text_hash,
+        'full_id': f"{line_number}({tag_type})({greek_id}){text_hash}",
+        'content': str(tag),
+        'text': text_content
+    }
+
+
+Exemplu. In fisierul RO voi avea:
+
+<!-- ARTICOL START --> 
+1(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">Stiu ca este dificil sa conduci la inceput, </span>dar dupa 10 luni inveti.</p> 
+2(B)(β) <p class="text_obisnuit2">Imi place sa merg la scoala si sa invat, mai ales in timpul saptamanii.</p> 
+3(C)(β) <p class="text_obisnuit">Sunt un bun conducator auto, dar am facut si greseli din care am invatat.</p> 
+4(C)(β) <p class="text_obisnuit">În fond, cele scrise de mine, sunt adevarate.</p> 
+5(A)(α) <p class="text_obisnuit"><span class="text_obisnuit2">Ma iubesti?</p> 
+6(C)(α) <p class="text_obisnuit">Iubesc sa conduc masina.</p> 
+7(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">Stiu ca este dificil sa conduci la inceput, </span>dar dupa 4-5 luni inveti.</p> 
+8(C)(β) <p class="text_obisnuit">Totul se repetă, chiar și ochii care nu se vad.</p> 
+9(B)(α) <p class="text_obisnuit2">BEE servesc o cafea 2 mai buna</p> 
+<!-- ARTICOL FINAL -->
+
+Exemplu. In fisierul EN voi avea:
+
+<!-- ARTICOL START -->
+1(B)(β) <p class="text_obisnuit2">I like going to school and learning, especially during the week.</p>
+2(C)(β) <p class="text_obisnuit">I'm a good driver, but I've also made mistakes that I've learned from.</p>
+3(C)(α) <p class="text_obisnuit">Basically, what I wrote is true.</p>
+4(C)(α) <p class="text_obisnuit">I love driving.</p>
+5(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">I know it's difficult to drive at first, </span> but after 4-5 months you learn.</p>
+6(C)(β) <p class="text_obisnuit">Everything is repeated, even the eyes that can't see.</p>
+<!-- ARTICOL FINAL -->
+
+Deci, ia in considerare sa calculezi tagurile , atat dein RO cat si din EN, in functie de A,B,C si apoi in functie de numarul liniei pe care este fiecare, apoi in functie de numarul total de taguri, si in functie de identificatorul grecesc
+
+Deci 3 calcule separate.
+----------
+
+Codul acesta Pythin afiseaza corect: "In RO exista in plus fata de EN urmatoarele: 2 taguri de tipul (A) si 1 tag de tipul (B)" dar nu afiseaza care sunt acele taguri.
+
+from bs4 import BeautifulSoup
+
+def count_tags(file_path):
+    """Counts and classifies tags in a given HTML file.
+
+    Args:
+        file_path (str): Path to the HTML file.
+
+    Returns:
+        dict: A dictionary containing the counts of each tag type.
+    """
+
+    with open(file_path, 'r', encoding='utf-8') as file:
+        soup = BeautifulSoup(file.read(), 'html.parser')
+
+    tag_counts = {'A': 0, 'B': 0, 'C': 0}
+    for i, tag in enumerate(soup.find_all('p')):
+        if tag.span:
+            tag_counts['A'] += 1
+        elif 'text_obisnuit2' in tag['class']:
+            tag_counts['B'] += 1
+        else:
+            tag_counts['C'] += 1
+        print(f"Linia {i+1}: Tag {tag['class']}")  # Optional: Print details for each tag
+    return tag_counts
+
+# Paths to the files
+ro_file = 'd:/3/ro/incotro-vezi-tu-privire.html'
+en_file = 'd:/3/en/where-do-you-see-look.html'
+
+# Count tags in both files
+ro_counts = count_tags(ro_file)
+en_counts = count_tags(en_file)
+
+# Compare and print results
+print("\nNumăr total de tag-uri în Română:")
+print(ro_counts)
+print("\nNumăr total de tag-uri în Engleză:")
+print(en_counts)
+
+# Calculate differences
+for tag_type in 'ABC':
+    diff = ro_counts[tag_type] - en_counts[tag_type]
+    print(f"Diferența de tag-uri de tip {tag_type}: {diff}")
+
+---------
+Vreau sa tii cont de identificatorii Numar(Litera)(Grecesc) atunci cand faci toate calculele, incat rezultatul sa fie de tipul urmator:
+
+Singura problema este ca poti avea linii de tip (A) asemanatoare in RO:
+
+1(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">Stiu ca este dificil sa conduci la inceput, </span>dar dupa 10 luni inveti.</p> 
+si
+7(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">Stiu ca este dificil sa conduci la inceput, </span>dar dupa 4-5 luni inveti.</p> 
+
+Cum procedezi ca sa identifici toate tagurile din RO care nu sunt in EN, incepem cautarea pe mai multe planuri in acelasi timp, astfel:
+
+Cautam in RO, de la prima linie. Avem astfel:
+
+1(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">Stiu ca este dificil sa conduci la inceput, </span>dar dupa 10 luni inveti.</p>
+
+Concomitent cautam si in EN, tot cu prima linie:
+
+1(B)(β) <p class="text_obisnuit2">I like going to school and learning, especially during the week.</p>  din EN, deoarece cei trei identificatori difera.
+
+Vedem ca nu avem match la toti 3 identificatorii, pastram asta in memorie ca fiind primul caz exceptat, o punem deoparte ca fiind "TAG WRONG", dar apoi o scadem din ro, astfel incat sa pornim alta cautare dupa cum urmeaza:
+
+<!-- ARTICOL START --> 
+1(B)(β) <p class="text_obisnuit2">Imi place sa merg la scoala si sa invat, mai ales in timpul saptamanii.</p> 
+2(C)(β) <p class="text_obisnuit">Sunt un bun conducator auto, dar am facut si greseli din care am invatat.</p> 
+3(C)(β) <p class="text_obisnuit">În fond, cele scrise de mine, sunt adevarate.</p> 
+4(A)(α) <p class="text_obisnuit"><span class="text_obisnuit2">Ma iubesti?</p> 
+5(C)(α) <p class="text_obisnuit">Iubesc sa conduc masina.</p> 
+6(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">Stiu ca este dificil sa conduci la inceput, </span>dar dupa 4-5 luni inveti.</p> 
+7(C)(β) <p class="text_obisnuit">Totul se repetă, chiar și ochii care nu se vad.</p> 
+8(B)(α) <p class="text_obisnuit2">BEE servesc o cafea 2 mai buna</p> 
+<!-- ARTICOL FINAL -->
+
+
+Cautam mai departe in RO, tot cu prima linie:
+
+Avem asa:
+
+1(B)(β) <p class="text_obisnuit2">Imi place sa merg la scoala si sa invat, mai ales in timpul saptamanii.</p> 
+
+compari in nou cu EN, prima linie:
+
+1(B)(β) <p class="text_obisnuit2">I like going to school and learning, especially during the week.</p>
+
+Avem match. Facem skip. Mergem mai departe cu urmatoarea linie din RO:
+
+2(C)(β) <p class="text_obisnuit">Sunt un bun conducator auto, dar am facut si greseli din care am invatat.</p> 
+
+cautam si in EN, pe linia urmatoare, pe linia 2:
+
+2(C)(β) <p class="text_obisnuit">I'm a good driver, but I've also made mistakes that I've learned from.</p>
+
+Avem match. Facem skip. Mergem mai departe cu urmatoarea linie din RO:
+
+3(C)(β) <p class="text_obisnuit">În fond, cele scrise de mine, sunt adevarate.</p> 
+
+cautam si in EN, pe linia urmatoare, pe linia 3:
+
+3(C)(α) <p class="text_obisnuit">Basically, what I wrote is true.</p>
+
+Aici vedem ca avem match doar pentru primii 2 identificatori, numarul si litera. In acest caz vom considera ca fiind egalitate, deci sunt corespondente, deci facem skip. Mergem mai departe cu urmatoarea linie din RO:
+
+4(A)(α) <p class="text_obisnuit"><span class="text_obisnuit2">Ma iubesti?</p> 
+
+cautam si in EN, pe linia urmatoare, pe linia 4:
+
+4(C)(α) <p class="text_obisnuit">I love driving.</p>
+
+Ce observam? Este al doilea caz exceptat de tipul "TAG WRONG". Chiar daca numarul si identificatorul gracesc sunt la fel, daca sunt tipuri diferite de LITERA, atunci o punem deoparte ca fiind "TAG WRONG", dar apoi o scadem din ro, astfel incat sa pornim alta cautare dupa cum urmeaza, si refacem numerotarea de la acel punct, astfel:
+
+<!-- ARTICOL START --> 
+1(B)(β) <p class="text_obisnuit2">Imi place sa merg la scoala si sa invat, mai ales in timpul saptamanii.</p> 
+2(C)(β) <p class="text_obisnuit">Sunt un bun conducator auto, dar am facut si greseli din care am invatat.</p> 
+3(C)(β) <p class="text_obisnuit">În fond, cele scrise de mine, sunt adevarate.</p> 
+4(C)(α) <p class="text_obisnuit">Iubesc sa conduc masina.</p> 
+5(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">Stiu ca este dificil sa conduci la inceput, </span>dar dupa 4-5 luni inveti.</p> 
+6(C)(β) <p class="text_obisnuit">Totul se repetă, chiar și ochii care nu se vad.</p> 
+7(B)(α) <p class="text_obisnuit2">BEE servesc o cafea 2 mai buna</p> 
+<!-- ARTICOL FINAL -->
+
+Reluam cautarea de unde am ramas, de la linia 4. In RO avem acum:
+
+4(C)(α) <p class="text_obisnuit">Iubesc sa conduc masina.</p> 
+
+cautam si in EN, din nou, pe linia 4, unde am ramas data trecuta:
+
+4(C)(α) <p class="text_obisnuit">I love driving.</p>
+
+Avem match. Facem skip. Mergem mai departe cu urmatoarea linie din RO:
+
+5(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">Stiu ca este dificil sa conduci la inceput, </span>dar dupa 4-5 luni inveti.</p> 
+
+cautam si in EN, pe linia urmatoare, pe linia 5:
+
+5(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">I know it's difficult to drive at first, </span> but after 4-5 months you learn.</p>
+
+Avem match. Facem skip. Mergem mai departe cu urmatoarea linie din RO:
+
+6(C)(β) <p class="text_obisnuit">Totul se repetă, chiar și ochii care nu se vad.</p> 
+
+cautam si in EN, pe linia urmatoare, pe linia 6:
+
+6(C)(β) <p class="text_obisnuit">Everything is repeated, even the eyes that can't see.</p>
+
+Avem match. Facem skip. Mergem mai departe cu urmatoarea linie din RO:
+
+7(B)(α) <p class="text_obisnuit2">BEE servesc o cafea 2 mai buna</p> 
+
+cautam si in EN, pe linia urmatoare, pe linia 7, dar vedem ca aici nu mai este niciun tag. Prin urmare este al treilea caz exceptat de tipul "TAG WRONG", il scadem din RO si il adaugam la lista "TAG WRONG".
+
+------------------
+De adaugat TORCH ca identificator suplimentar
+
+pythonCopydef get_tag_identifier(tag):
+    """Creează un identificator unic pentru un tag bazat pe număr, tip, identificatorul grecesc și un hash Torch."""
+    # Generează un hash bazat pe textul tagului folosind Torch
+    text_tensor = torch.tensor(list(tag['text'].encode('utf-8')), dtype=torch.int8)
+    torch_hash = torch.sum(text_tensor) % 10000
+    return f"{tag['number']}({tag['type']})({tag['greek']})[{torch_hash}]"
+Să analizăm funcția:
+
+Funcția primește un singur parametru tag, care este un dicționar ce conține informații despre tag.
+Comentariul docstring descrie ce face funcția: creează un identificator unic bazat pe numărul tagului, tipul său, identificatorul grecesc și un hash generat de Torch.
+Primul pas este să generăm hash-ul Torch:
+
+Convertim textul tagului într-un tensor de întregi folosind codificarea UTF-8.
+Calculăm suma valorilor din tensor și folosim operația modulo pentru a obține un număr între 0 și 9999.
+
+
+Returnăm un șir formatat care include:
+
+Numărul tagului (tag['number'])
+Tipul tagului între paranteze (tag['type'])
+Identificatorul grecesc între paranteze (tag['greek'])
+Hash-ul Torch între paranteze pătrate ([torch_hash])
+
+
+
+Cu această funcție, fiecare tag va avea un identificator de forma:
+Copynumăr(literă)(grecesc)[torch_hash]
+De exemplu:
+1(B)(β)[1234]
+
+------------------
+
+REZULTAT: Atfel am ajuns la rezultatul final de afisat:
+
+In RO exista in plus fata de EN urmatoarele: 2 taguri de tipul (A) si 1 tag de tipul (B)
+
+2(A)  adica asta 2 taguri: 
+
+<p class="text_obisnuit"><span class="text_obisnuit2">Stiu ca este dificil sa conduci la inceput, </span>dar dupa 10 luni inveti.</p> 
+si asta:
+
+<p class="text_obisnuit"><span class="text_obisnuit2">Ma iubesti?</p> 
+
+1(B) adica asta  <p class="text_obisnuit2">BEE servesc o cafea 2 mai buna</p>
+
+----------
+Soluții posibile
+Iată câteva abordări pe care le poți lua în considerare pentru a îmbunătăți compararea tag-urilor și pentru a afișa cele suplimentare:
+
+1. Modificarea criteriului de potrivire:
+Asemănare parțială: În loc să verifici dacă primele 10 caractere sunt identice, poți utiliza algoritmi de asemănare a șirurilor de caractere, cum ar fi Levenshtein distance, pentru a identifica tag-uri cu un grad de similaritate mai mare.
+Ignorarea cazului: Converteste conținutul tag-urilor la același caz (toate literele mici sau toate literele mari) înainte de comparație.
+Eliminarea caracterelor speciale: Îndepărtează caracterele speciale (punctuație, spații suplimentare) înainte de comparație pentru a simplifica procesul.
+2. Considerarea altor atribute:
+Clase: Compară și clasele atribuite tag-urilor.
+ID-uri: Dacă tag-urile au ID-uri unice, le poți folosi pentru identificare.
+Structura părinte: Verifică dacă tag-urile se află în aceeași poziție în arborele DOM.
+3. Utilizarea bibliotecilor de comparație a textelor:
+Difflib: Această bibliotecă din Python oferă funcții pentru a compara secvențe de linii de text și pentru a identifica diferențele dintre ele.
+fuzzywuzzy: Această bibliotecă oferă algoritmi de asemănare fuzzy pentru a compara șiruri de caractere.
+4. Modele de limbaj natural:
+Pentru comparații mai complexe: Dacă conținutul tag-urilor este text, poți utiliza modele de limbaj natural (NLP) pentru a măsura asemănarea semantică între ele.
+    --------------
+
+
+IDEI DE REZOLVARE AICI, dar functioneaza doar 85% corect
+
+https://gist.github.com/me-suzy/273edabcc014621c56bfeb353d5454ae
+
+sau aici:
+
+https://gist.github.com/me-suzy/1c66808add74a200f1052f7daaab2cdb
