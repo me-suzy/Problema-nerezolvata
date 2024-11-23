@@ -314,6 +314,28 @@ Avem match. Facem skip. Mergem mai departe cu urmatoarea linie din RO:
 
 cautam si in EN, pe linia urmatoare, pe linia 7, dar vedem ca aici nu mai este niciun tag. Prin urmare este al treilea caz exceptat de tipul "TAG WRONG", il scadem din RO si il adaugam la lista "TAG WRONG".
 
+------------PE SCURT:--------
+
+Ai dreptate, îmi cer scuze. Trebuie să aplic exact logica din specificații pentru determinarea tag-urilor "TAG WRONG".
+Pentru fiecare tag trebuie să verific:
+
+Numărul liniei
+Litera (A/B/C)
+Identificatorul grecesc (α/β/γ) bazat pe numărul de cuvinte
+
+Un tag devine "TAG WRONG" când:
+
+Nu are corespondență exactă la toți cei 3 identificatori, sau
+Are doar 2 identificatori la fel (ex: număr și grecesc) dar diferă al treilea (litera)
+
+Plus, trebuie să:
+
+Păstrez tag-urile "TAG WRONG" într-o listă separată
+Scad aceste tag-uri din RO și renumerotez restul
+Continui procesul până termin de verificat toate tag-urile
+
+Să revizuiesc codul pentru a implementa corect această logică:
+
 ------------------
 De adaugat TORCH ca identificator suplimentar
 
