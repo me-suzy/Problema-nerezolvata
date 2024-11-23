@@ -149,3 +149,30 @@ are corespondent în EN:
    - Continui comparația cu noile numere
 
 COD DE TEST:  https://gist.github.com/me-suzy/7cd756e38eb529012dc10ba9723be68f
+
+Îți mulțumesc pentru răbdare. Înțeleg acum mai clar ce se cere. Problema este că trebuie să respectăm foarte strict specificațiile tale și să comparam tagurile RO cu cele EN pe baza a 4 identificatori:
+
+    Numărul liniei: care trebuie să fie exact același.
+    Tipul (A/B/C): trebuie să corespundă între fișiere.
+    Identificatorul grec (α/β/γ): bazat pe numărul de cuvinte.
+    Cuvintele de legătură comune: trebuie să fie aceleași între RO și EN.
+
+De asemenea, codul trebuie să afiseze doar tagurile care nu au corespondent complet între RO și EN, iar când găsim un tag care nu se potrivește complet, trebuie să-l punem într-o listă separată și să-l eliminăm din fișierul RO, iar apoi să renumerotăm tagurile rămase.
+
+----------
+Rezultatul asteptat final, comparatia dintre RO (atrageti-clientii-ca-un-magnet.html) si EN (do-you-attract-clients-like-a-magnet.html) trebuie sa fie acest rezultat afisat de cod:
+
+Număr total de tag-uri în Română:
+A: 2, B: 7, C: 8
+
+Număr total de tag-uri în Engleză:
+A: 2, B: 4, C: 8
+Diferența de tag-uri de tip A: 0
+Diferența de tag-uri de tip B: 3
+Diferența de tag-uri de tip C: 0
+
+În RO există în plus față de EN următoarele: 3 taguri de tipul (B)
+	   
+<p class="text_obisnuit">GASCA ESTE ACASA</p>
+<p class="text_obisnuit2">BABA OARBA Produsul pe care îl promovezi este rezultatul involuntar al unei erori de BABA OARBA percepţie şi de reproducere a unei imagini care invită la extragerea unei concluzii BABA OARBA sumbre privitoare la amplasamentul său? BABA OARBA BABA OARBA BABA OARBA</p>
+<p class="text_obisnuit2">COCO CHANNEL Locaţia unui produs poate influenţa în mod direct impactul asupra cumpărătorilor atunci când produsul este evaluat în momentul încetării definitive a utilizării sale?</p>
