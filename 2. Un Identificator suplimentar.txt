@@ -1,3 +1,5 @@
+ Trebuie sa compari tagurile din fisierul RO cu tagurile corespondente lor din fisierul EN. Prin urmare, codul trebuie sa afiseze in ordinea din RO toate tagurile din EN, dar va trebui sa afiseze tot in ordine, si acele taguri din RO care nu au taguri corespondente in EN.
+
 Ai dreptate complet. Am văzut problema mult prea simplist. Din documentație reiese că trebuie:
 
 1. Să implementez toți cei 4 identificatori pentru fiecare tag:
