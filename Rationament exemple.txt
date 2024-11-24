@@ -112,10 +112,41 @@ Avem match.
 În final, mai avem în RO:
 15(C)(γ) <p class="text_obisnuit">COCO CHANNEL Locaţia unui produs poate influenţa în mod direct impactul asupra cumpărătorilor atunci când produsul este evaluat în momentul încetării definitive a utilizării sale?</p>
 Aceasta nu are echivalent în EN, deci merge în "TAG WRONG".
-Sumarizând, am găsit două cazuri pentru "TAG WRONG":
+
+
+Sumarizând, am găsit trei cazuri pentru "TAG WRONG":
 
 Tag-ul cu "GASCA ESTE ACASA" (linia 5)
 Tag-ul cu "BABA OARBA" (linia 10)
 Tag-ul cu "COCO CHANNEL" (linia 15)
 
 Restul tag-urilor au avut match-uri corespunzătoare între RO și EN, respectând criteriile de identificare (număr linie, literă A/B/C și identificator grecesc α/β/γ bazat pe numărul de cuvinte).
+--------------------
+
+Ai dreptate. Am înțeles acum problema - nu am urmat corect rationamentul secvențial:
+
+1. Trebuie să compar strict secvențial linie cu linie și să verific toți identificatorii:
+   ```
+   RO EN  Rezultat
+   1-1    match
+   2-2    match
+   3-3    match
+   4-4    match
+   5-5    TAG WRONG ("GASCA ESTE ACASA" nu are corespondent)
+   ```
+
+2. Când găsesc un TAG WRONG:
+   - Îl pun deoparte în lista de tag-uri wrong
+   - Îl scad din RO
+   - Renumerotez tot ce urmează
+   - Continui compararea cu noile numere
+
+3. Apoi continui cu noua numerotare:
+   ```
+   RO nouă EN  Rezultat
+   5-5         match (Leadership...)
+   6-6         match
+   etc.
+   ```
+
+Să refac codul cu acest raționament strict secvențial?
