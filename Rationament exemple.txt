@@ -1,0 +1,121 @@
+Vreau sa tii cont de identificatorii Numar(Litera)(Grecesc) atunci cand faci toate calculele, incat rezultatul sa fie de tipul urmator:
+
+2. Trebuie să compar tag-urile în ordinea specifică folosind toți cei 4 identificatori:
+   - Numărul liniei 
+   - Litera (A/B/C)
+   - Identificatorul grecesc (α/β/γ) bazat pe numărul de cuvinte
+   - Cuvintele de legătură comune
+
+Litera "A" este pentru tagurile de forma  <p class="text_obisnuit"><span class="text_obisnuit2">(.*?)</span>(.*?)</p> 
+Litera "B" este pentru tagurile de forma   <p class="text_obisnuit2">(.*?)</p> 
+Litera "C" este pentru tagurile de forma  <p class="text_obisnuit">(.*?)</p> 
+
+α \alpha (tagul cuprinde mai putin de 7 cuvinte )
+β \beta  (numarul cuvintelor din tag este cuprins intre  7 si 14 cuvinte )
+γ \gamma (tagul cuprinde mai mult de 14 cuvinte )
+
+Cautam in RO, de la prima linie. Avem astfel:
+
+1(B)(γ) <p class="text_obisnuit2"><em>Încearcă să dai valoare produsului tău prin ceea ce ştii că va deveni, lăsând o impresie de neuitat prin amplasamentul lui într-un perimetru delimitat de expunerea rezultată din experienţa “consumului” său.</em></p>
+
+Concomitent cautam si in EN, tot cu prima linie:
+
+1(B)(γ) <p class="text_obisnuit2"><em>Try to give value to your product by what you know it will become, leaving an unforgettable impression through its location in a perimeter bounded by exposure resulting from the experience of &quot;consuming&quot; it.</em></p>  din EN, deoarece cei trei identificatori difera.
+
+Avem MATCH, deci mergem mai departe cu cautarea, si facem skip la aceste taguri de pe pozitia 1.
+
+Cautam mai departe in RO, tot cu urmatoarea linie, adica linia 2:
+
+Avem asa:
+
+2(C)(γ) <p class="text_obisnuit">Ce s-ar întâmpla dacă după multe experimente şi cercetări ai inventa un echipament eficient pentru industria automobilelor? Probabil, mai întâi de toate vei împrumuta nişte bani de la bancă, de la prieteni sau de la diverşi investitori pentru a-ţi deschide o mică fabrică care să producă echipamentul pe care l-ai inventat şi care a fost testat şi a primit avizul de fabricare. Apoi îţi vei face cunoscut produsul peste tot în lume prin intermediul reclamelor difuzate pe posturile de televiziune sau pe internet. Dacă ai noroc, în cel mai scurt timp vânzările vor creşte spectaculos, vei deveni celebru şi bogat.</p>
+
+Comparam in nou cu EN, a doua linie:
+
+2(C)(γ) <p class="text_obisnuit">What would happen if after many experiments and research you would create an efficient equipment for the automobile industry? I will try to answer in your place at this question, having the hope that my answer will be good enough. First of all you will loan some money from a bank, from friends or from different investors to open a little enterprise who products the equipment you invented and which was tested and received the note of fabrication. Then you will make your product known all over the world through advertisements on TV or newspaper, and of course on the internet. In the shortest time the sales will rise spectacular you will become famous and rich.</p>
+
+Avem match. Facem skip. Mergem mai departe cu urmatoarea linie din RO, adica linia 3:
+
+3(C)(γ) <p class="text_obisnuit">Însă acum vine partea cea mai interesantă. Fiindcă au investit milioane de euro în găsirea unui echipament similar şi nu au ajuns la niciun rezultat concret, firmele concurente existente pe piaţă vor face tot posibilul să-ţi pună cât mai multe beţe în roate, să te discrediteze şi să-ţi zdrobească imaginea. Întrebarea pe care ţi-o adresez este: clienţii vor mai apela la serviciile tale? Vor mai cumpăra oare echipamentul pe care l-ai inventat după ce te-ai ales cu o reclamă negativă?</p>
+
+Comparam in nou cu EN, a 3-a linie:
+
+3(C)(γ) <p class="text_obisnuit">But now comes the most interesting part. Because they invested millions of euro in finding an equipment just like yours and they didn't reach any results, the competitive companies will do everything it's possible to make your situation harder, to blemish you and to destroy your image. The question is: will the clients still appeal at your services? Will they still buy the equipment you invented after you had negative publicity?</p>
+
+Avem match. Facem skip. Mergem mai departe cu urmatoarea linie din RO, adica linia 4:
+
+4(C)(γ) <p class="text_obisnuit"> <p class="text_obisnuit">Da, vor cumpăra, şi încă hotărât. De ce? Pentru că echipamentul este mult mai performant decât altele existente pe piaţă, pentru că preţul este mai accesibil, pentru că designul este mai bine realizat, pentru că condiţiile de livrare sunt foarte avantajoase, etc.</p>
+
+Comparam in nou cu EN, a 4-a linie:
+
+4(C)(γ)  <p class="text_obisnuit">Yes they will, and even more determined. Why? Because the equipment and its performances are special from other, the price is good, the design is well made, the delivery conditions are advantageous, etc.</p>
+
+Avem match. Facem skip. Mergem mai departe cu urmatoarea linie din RO, adica linia 5:
+
+5(C)(α) <p class="text_obisnuit">GASCA ESTE ACASA</p>
+
+Comparam in nou cu EN, a 5-a linie, adica al 5-lea tag:
+
+5(B)(γ)  <p class="text_obisnuit2">Leadership: Does the image you attribute to your product correspond to redefining its applicability area in a real-life situation or a simulation of producing added value?</p>
+
+Vedem ca nu avem match la toti 3 identificatorii, pastram asta in memorie ca fiind primul caz exceptat, o punem deoparte ca fiind "TAG WRONG", dar apoi o scadem din ro, astfel incat sa pornim alta cautare cu urmatoarea linie, dar o consideram linia 5, deoarece am pus in "TAG WRONG" linia fara echivalent.
+
+Reluam numerotarea de la linia 5, facand abstratie de ce pusa in "TAG WRONG":
+
+5(B)(γ)  <p class="text_obisnuit2">Leadership: Imaginea pe care o atribui produsului tău corespunde cu redefinirea zonei sale de aplicabilitate într-o situaţie reală sau de simulare a producerii de valoare adăugată?</p>
+
+Comparam in nou cu EN, a 5-a linie, adica al 5-lea tag:
+
+5(B)(γ) <p class="text_obisnuit2">Leadership: Does the image you attribute to your product correspond to redefining its applicability area in a real-life situation or a simulation of producing added value?</p>
+
+Avem match. Facem skip. Mergem mai departe cu urmatoarea linie din RO, adica linia 6:
+
+6(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">Zona de aplicabilitate a unui produs poate fi redefinită într-o situaţie reală a producerii de valoare adăugată atunci când percepţia cumpărătorului privitoare la calitatea superioară a produsului este rezultatul imediat al unei stări de bucurie inexprimabilă, ca reacţie la îndeplinirea unei dorinţe singulare.</span></p>
+Comparing with EN:
+6(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">The application area of a product can be redefined in a real situation of producing added value when the buyer's perception of superior product quality is the immediate result of an inexpressible state of joy in response to a single wish.</span></p>
+We have a match. Moving to the next line in RO:
+7(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">Sau, aceeaşi zonă de aplicabilitate a unui produs poate fi redefinită într-o situaţie de simulare a producerii de valoare adăugată atunci când există posibilitatea unei confuzii privind garanţia, actualitatea, acurateţea şi detaliile comerciale specifice campaniei promoţionale. Iar când există posibilitatea unei omisiuni direct imputabile producătorului, plata se reduce sau se anulează, parțial.</span></p>
+Comparing with EN:
+7(A)(β) <p class="text_obisnuit"><span class="text_obisnuit2">Or, the same product applicability area can be redefined in a simulation situation of producing added value when there is a possibility of confusion regarding the promotional campaign's warranty, timeliness, accuracy, and details. And when there is a possibility of omission directly attributable to the manufacturer, the payment is reduced or canceled in part.</span></p>
+We have a match. Moving to the next line in RO:
+8(C)(α) <p class="text_obisnuit">Totul ar fi mult mai simplu dacă am reuşi să ne facem primii cunoscute pe piaţă serviciile de calitate.</p>
+Comparing with EN:
+8(C)(α) <p class="text_obisnuit">Everything would be much easier if we could succeed to be the first ones who promoting their quality services on the market.</p>
+We have a match. Moving to the next line in RO:
+9(C)(γ) <p class="text_obisnuit">Se pare că pe orice piaţă unde primează calitatea serviciilor, cei mai câştigaţi întreprinzători sunt aceia care ocupă locul cel mai favorabil într-o anumită ramură de activitate, care se implică activ în satisfacerea cu promptitudine şi profesionalism a cerinţelor şi aşteptărilor clienţilor. Dacă lupţi pentru afirmare şi doreşti să atragi succesul într-un domeniu în care concurenţa este acerbă, atunci trebuie să-ţi dai tot interesul să fii cel mai bun.</p>
+Comparing with EN:
+9(C)(γ) <p class="text_obisnuit">It seems that on any market where the quality of the services it's on the first place, the entrepreneurs who are winners are those who have the favorable place, who are the first to act in a certain area of activity, who get involved actively in satisfying with promptitude and professionalism the requirements and the expectations of all the clients. If you fight for affirmation and wish to attract success in a domain characterized by competition than you have to give all your interest to win the trust of many clients, to offer such good services that everybody to appeal often at you, at the company you lead.</p>
+We have a match. Shall I continue with the analysis of the remaining text? CopyRetryNFda, totEditÎn regulă, continui analiza:
+10(C)(γ) <p class="text_obisnuit">BABA OARBA Produsul pe care îl promovezi este rezultatul involuntar al unei erori de BABA OARBA percepţie şi de reproducere a unei imagini care invită la extragerea unei concluzii BABA OARBA sumbre privitoare la amplasamentul său? BABA OARBA BABA OARBA BABA OARBA</p>
+Comparăm cu EN:
+Nu găsim un echivalent direct cu aceeași structură, deci acesta va fi pus în "TAG WRONG" și continuăm cu următorul, păstrând numerotarea.
+10(C)(γ) <p class="text_obisnuit">Leadership: Produsul pe care îl promovezi este rezultatul involuntar al unei erori de percepţie şi de reproducere a unei imagini care invită la extragerea unei concluzii sumbre privitoare la amplasamentul său?</p>
+Comparăm cu EN:
+10(C)(γ) <p class="text_obisnuit">Leadership: Is the product you are promoting the involuntary result of an image perception and reproduction error that calls for a bleak conclusion regarding its location?</p>
+Avem match. Mergem mai departe cu următoarea linie din RO:
+11(C)(γ) <p class="text_obisnuit">Cel mai important lucru pe care trebuie să-l faci este să găseşti o metodă prin care să-i determini pe clienţi să depindă de produsul sau de serviciile tale. Acest lucru este posibil doar dacă reuşeşti să vii primul în întâmpinarea nevoilor lor cu o soluţie eficientă pe care să o vinzi apoi sub formă de produs sau serviciu. Asemenea unui magnet care atrage pilitura de fier, tu trebuie să-i atragi pe clienţi servindu-le ceea ce îşi doresc şi să-i determini să revină la tine.</p>
+Comparăm cu EN:
+11(C)(γ) <p class="text_obisnuit">The most important thing you have to do is to find a method through which you can make your clients depend on your product or your services. This thing is possible only if you succeed to come first to greet his necessities with an efficient solution which you can sell after under a product or a service. Like a magnet which attracts steel, you have to attract clients offering them what they want and make them come every time to you and to always seek the services you provide. Making customers come back again and again only to you, this is what effective marketing means.</p>
+Avem match. Mergem mai departe cu următoarea linie din RO:
+12(C)(γ) <p class="text_obisnuit">Indiferent cât de neloială ar fi concurenţa, dacă devii un maestru în domeniul tău de activitate şi reuşeşti să creezi produse şi servicii indispensabile pentru clienţi, nu vei avea motive de îngrijorare. La fel cum la un medic care a dobândit faima de a vindeca orice boală apelează tot mai mulţi pacienţi, şi la serviciile tale vor apela mai mulţi clienţi dacă îţi creezi o reputaţie de invidiat, dacă oferi produse şi servicii de calitate superioară.</p>
+Comparăm cu EN:
+12(C)(γ) <p class="text_obisnuit">No matter how unmoral the competition would be, if you become a master in your domain and succeed to create products and services indispensable for clients, you will not have reasons to worry. Just like at a doctor, who gained his reputation of healing any disease, appeals many patients, also will appeal at you if you create a enviable reputation, if you offer products and services of high quality.</p>
+Avem match. Mergem mai departe cu următoarea linie din RO:
+13(C)(γ) <p class="text_obisnuit">Înainte de a face pasul cel mare întreabă-te mai întâi dacă serviciile şi produsele pe care le oferă compania ta rezolvă problema cuiva. Apoi fă tot posibilul să îţi îmbunătăţeşti serviciile şi produsele pentru a satisface exigenţele tot mai mari ale clienţilor. Preocuparea ta trebuie să fie aceea de a oferi servicii şi produse atât de bune, de ieftine şi de necesare, încât tot mai mulţi clienţi să apeleze la compania ta.</p>
+Comparăm cu EN:
+13(C)(γ) <p class="text_obisnuit">Before making the big step, ask yourself first if the services and products which your firm offers solve someone problems. Than make all the possible to increase your services and products to satisfy the exigency of your clients. Your concern should be to provide services and products so good, cheap and necessary, that more and more customers to appeal at your company.</p>
+Avem match. Mergem mai departe cu următoarea linie din RO:
+14(C)(γ) <p class="text_obisnuit">Întrebare: Locaţia unui produs poate influenţa în mod direct impactul asupra cumpărătorilor atunci când produsul este evaluat în momentul încetării definitive a utilizării sale?</p>
+Comparăm cu EN:
+14(C)(γ) <p class="text_obisnuit">Question: Does the location of a product have a direct impact on buyers when the product is evaluated at the time of its definitive cessation of use?</p>
+Avem match.
+În final, mai avem în RO:
+15(C)(γ) <p class="text_obisnuit">COCO CHANNEL Locaţia unui produs poate influenţa în mod direct impactul asupra cumpărătorilor atunci când produsul este evaluat în momentul încetării definitive a utilizării sale?</p>
+Aceasta nu are echivalent în EN, deci merge în "TAG WRONG".
+Sumarizând, am găsit două cazuri pentru "TAG WRONG":
+
+Tag-ul cu "GASCA ESTE ACASA" (linia 5)
+Tag-ul cu "BABA OARBA" (linia 10)
+Tag-ul cu "COCO CHANNEL" (linia 15)
+
+Restul tag-urilor au avut match-uri corespunzătoare între RO și EN, respectând criteriile de identificare (număr linie, literă A/B/C și identificator grecesc α/β/γ bazat pe numărul de cuvinte).
