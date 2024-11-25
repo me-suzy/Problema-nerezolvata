@@ -1,0 +1,278 @@
+1. Să implementez toți cei 4 identificatori pentru fiecare tag:
+   - Numărul liniei
+   - Litera (A/B/C)
+   - Identificatorul grecesc (α/β/γ) bazat pe numărul de cuvinte
+   - Identificatorul nou bazat pe cuvintele de legătură
+
+2. Să compar tag-urile secvențial, linie cu linie, între RO și EN:
+   - Verific dacă tag-urile de pe aceeași linie au toți identificatorii identici
+   - Dacă diferă, marchez tag-ul RO ca fiind în plus
+   - Continui cu următoarea pereche de tag-uri
+
+3. Pentru tag-uri cu texte similare dar identificatori diferiți:
+   - Verific cuvintele de legătură în ambele limbi
+   - Verific dacă au aceeași secvență și același număr de cuvinte de legătură
+   - Dacă nu se potrivesc, marchez tag-ul RO ca fiind în plus
+
+4. După fiecare tag marcat ca fiind în plus:
+   - Renumerotez tag-urile rămase din RO
+   - Continui comparația cu noile numere
+
+Litera "A" este pentru tagurile de forma C <p class="text_obisnuit"><span class="text_obisnuit2">(.*?)</span>(.*?)</p> 
+Litera "B" este pentru tagurile de forma  B <p class="text_obisnuit2">(.*?)</p> 
+Litera "C" este pentru tagurile de forma C <p class="text_obisnuit">(.*?)</p> 
+
+α \alpha (tagul cuprinde mai putin de 7 cuvinte )
+β \beta  (numarul cuvintelor din tag este cuprins intre  7 si 14 cuvinte )
+γ \gamma (tagul cuprinde mai mult de 14 cuvinte )
+
+
+Asa trebuie pusa problema. Nu conteaza continutul tagurilor, conteaza Numarul, Ordinea, Si Tipul lor.
+
+d:\3\PROBEMA\atrageti-clientii-ca-un-magnet.html 
+
+    <!-- ARTICOL START -->
+
+        1.B <p class="text_obisnuit2"><em>(.*?)</em></p>
+        2.C <p class="text_obisnuit">(.*?)</p>
+		3.C <p class="text_obisnuit">(.*?)</p>
+		4.C <p class="text_obisnuit">(.*?)</p>
+		5.C <p class="text_obisnuit">GASCA ESTE ACASA</p>
+		6.B <p class="text_obisnuit2">(.*?)</p>
+		7.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+		8.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+		9.C <p class="text_obisnuit">(.*?)</p>
+		10.C <p class="text_obisnuit">(.*?)</p>
+		11.B <p class="text_obisnuit2">BABA OARBA</p>
+		12.B <p class="text_obisnuit2">(.*?)</p>
+		13.C <p class="text_obisnuit">(.*?)</p>
+		14.C <p class="text_obisnuit">(.*?)</p>
+		15.C <p class="text_obisnuit">(.*?)</p>
+		16.B <p class="text_obisnuit2">(.*?)</p>
+		17.B <p class="text_obisnuit2">COCO CHANNEL Locaţia unui produs poate influenţa în mod direct impactul asupra cumpărătorilor atunci când produsul este evaluat în momentul încetării definitive a utilizării sale?</p>
+		
+  <!-- ARTICOL FINAL -->
+  
+d:\3\PROBEMA\do-you-attract-clients-like-a-magnet.html 
+
+    <!-- ARTICOL START -->
+
+        1.B <p class="text_obisnuit2"><em>(.*?)</em></p>
+		2.C <p class="text_obisnuit">(.*?)</p>
+        3.C <p class="text_obisnuit">(.*?)</p>
+        4.C <p class="text_obisnuit">(.*?)</p>
+        5.B <p class="text_obisnuit2">(.*?)</p>
+        6.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+        7.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+        8.C <p class="text_obisnuit">(.*?)</p>
+        9.C <p class="text_obisnuit">(.*?)</p>
+        10.B <p class="text_obisnuit2">(.*?)</p>
+        11.C <p class="text_obisnuit">(.*?)</p>
+        12.C <p class="text_obisnuit">(.*?)</p>
+        13.C <p class="text_obisnuit">(.*?)</p>
+        14.B <p class="text_obisnuit2">(.*?)</p>
+   
+       <!-- ARTICOL FINAL -->
+	   
+REzolvare. Cum ne dam seama ca  		5.C <p class="text_obisnuit">GASCA ESTE ACASA</p> din RO nu se gaseste in html din EN?
+Pentru ca trebuie sa urmarim numarul, ordinea si tipul celorlalte taguri dinaintea si dupa el.
+
+Vedem ca pe primele 4 poziti avem atat in RO cat si in EN acelasi format de taguri:
+
+        1.B <p class="text_obisnuit2"><em>(.*?)</em></p>
+        2.C <p class="text_obisnuit">(.*?)</p>
+		3.C <p class="text_obisnuit">(.*?)</p>
+		4.C <p class="text_obisnuit">(.*?)</p>
+		
+		Apoi avem urmatoarele 4 taguri in RO:
+		
+		5.C <p class="text_obisnuit">GASCA ESTE ACASA</p>
+		6.B <p class="text_obisnuit2">(.*?)</p>
+		7.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+		8.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+		
+Dar in EN avem altfel:
+
+        5.B <p class="text_obisnuit2">(.*?)</p>
+        6.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+        7.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+        8.C <p class="text_obisnuit">(.*?)</p>
+		
+Ce observam aici? Observam ca avem ordinea tagurilor comuna in RO si EN, pentru liniile urmatoare:
+
+        6.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+        7.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+        8.C <p class="text_obisnuit">(.*?)</p>
+		
+Dar prin proces cartezian se vede ca linia 5 nu are corespondent in RO acelasi tip de tag, dar celelalte taguri dinaintea si dupa el, coincid IN RO si in EN. Prin urmare, trebuie pus in "TAG Wrong". La fel trebuie sa facem si pentru toate celelalte taguri. Sunt niste pasi de urmat. 
+
+1. Trebuie comparat fiecare tag in parte din RO, cu tagul de pe aceeasi pozitie din EN
+2. Trebuie comparate tagurile dinaintea si dupa acel tag, apoi comparate in EN tagurile dinaintea si dupa tagul corespondent. Si daca tagurile dinaintea si dupa el au acelasi tip, si numai acel tag nu are corespondent acelasi numar, ordine si tip, inseamna ca este in plus. Il punem deoparte, numaram din nou facand abstractie de el. De fiecare data cand gasim un tag din RO in plus, il taiem din lista de taguri RO, si numaram toate tagurile din RO, de la inceput. 
+
+Deci acum vom avea asa in RO, avand exclus un tag:
+
+    <!-- ARTICOL START -->
+
+        1.B <p class="text_obisnuit2"><em>(.*?)</em></p>
+        2.C <p class="text_obisnuit">(.*?)</p>
+		3.C <p class="text_obisnuit">(.*?)</p>
+		4.C <p class="text_obisnuit">(.*?)</p>
+		5.B <p class="text_obisnuit2">(.*?)</p>
+		6.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+		7.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+		8.C <p class="text_obisnuit">(.*?)</p>
+		9.C <p class="text_obisnuit">(.*?)</p>
+		10.B <p class="text_obisnuit2">BABA OARBA</p>
+		11.B <p class="text_obisnuit2">(.*?)</p>
+		12.C <p class="text_obisnuit">(.*?)</p>
+		13.C <p class="text_obisnuit">(.*?)</p>
+		14.C <p class="text_obisnuit">(.*?)</p>
+		15.B <p class="text_obisnuit2">(.*?)</p>
+		16.B <p class="text_obisnuit2">COCO CHANNEL Locaţia unui produs poate influenţa în mod direct impactul asupra cumpărătorilor atunci când produsul este evaluat în momentul încetării definitive a utilizării sale?</p>
+		
+  <!-- ARTICOL FINAL -->
+  
+d:\3\PROBEMA\do-you-attract-clients-like-a-magnet.html 
+
+    <!-- ARTICOL START -->
+
+        1.B <p class="text_obisnuit2"><em>(.*?)</em></p>
+		2.C <p class="text_obisnuit">(.*?)</p>
+        3.C <p class="text_obisnuit">(.*?)</p>
+        4.C <p class="text_obisnuit">(.*?)</p>
+        5.B <p class="text_obisnuit2">(.*?)</p>
+        6.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+        7.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+        8.C <p class="text_obisnuit">(.*?)</p>
+        9.C <p class="text_obisnuit">(.*?)</p>
+        10.B <p class="text_obisnuit2">(.*?)</p>
+        11.C <p class="text_obisnuit">(.*?)</p>
+        12.C <p class="text_obisnuit">(.*?)</p>
+        13.C <p class="text_obisnuit">(.*?)</p>
+        14.B <p class="text_obisnuit2">(.*?)</p>
+   
+       <!-- ARTICOL FINAL -->
+
+Mergem mai departe cu fiecare tag. Comparam atat in RO cat si in EN, fiecare tag, Numaru, Ordinea si Tipul. Ajungem in RO la tagul 		10.B <p class="text_obisnuit2">BABA OARBA</p>
+
+Ce observam ?
+
+Inaintea lui, atat in RO cat si in EN avem taguri la fel:
+
+		6.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+		7.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+		8.C <p class="text_obisnuit">(.*?)</p>
+		9.C <p class="text_obisnuit">(.*?)</p>
+		
+Dupa el, avem atat in RO cat si in EN taguri la fel:
+
+		11.B <p class="text_obisnuit2">(.*?)</p>
+		12.C <p class="text_obisnuit">(.*?)</p>
+		13.C <p class="text_obisnuit">(.*?)</p>
+		
+Prin urmare  10.B <p class="text_obisnuit2">BABA OARBA</p>  este in plus in RO. Il punem in "Tag Wrong" si il excludem din lista. Refacem numerotarea tagurilor din RO, excluzand si tagul precedent. Vom avea asa:
+
+    <!-- ARTICOL START -->
+
+        1.B <p class="text_obisnuit2"><em>(.*?)</em></p>
+        2.C <p class="text_obisnuit">(.*?)</p>
+		3.C <p class="text_obisnuit">(.*?)</p>
+		4.C <p class="text_obisnuit">(.*?)</p>
+		5.B <p class="text_obisnuit2">(.*?)</p>
+		6.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+		7.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+		8.C <p class="text_obisnuit">(.*?)</p>
+		9.C <p class="text_obisnuit">(.*?)</p>
+		10.B <p class="text_obisnuit2">(.*?)</p>
+		11.C <p class="text_obisnuit">(.*?)</p>
+		12.C <p class="text_obisnuit">(.*?)</p>
+		13.C <p class="text_obisnuit">(.*?)</p>
+		14.B <p class="text_obisnuit2">(.*?)</p>
+		15.B <p class="text_obisnuit2">COCO CHANNEL Locaţia unui produs poate influenţa în mod direct impactul asupra cumpărătorilor atunci când produsul este evaluat în momentul încetării definitive a utilizării sale?</p>
+		
+  <!-- ARTICOL FINAL -->
+  
+d:\3\PROBEMA\do-you-attract-clients-like-a-magnet.html 
+
+    <!-- ARTICOL START -->
+
+        1.B <p class="text_obisnuit2"><em>(.*?)</em></p>
+		2.C <p class="text_obisnuit">(.*?)</p>
+        3.C <p class="text_obisnuit">(.*?)</p>
+        4.C <p class="text_obisnuit">(.*?)</p>
+        5.B <p class="text_obisnuit2">(.*?)</p>
+        6.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+        7.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+        8.C <p class="text_obisnuit">(.*?)</p>
+        9.C <p class="text_obisnuit">(.*?)</p>
+        10.B <p class="text_obisnuit2">(.*?)</p>
+        11.C <p class="text_obisnuit">(.*?)</p>
+        12.C <p class="text_obisnuit">(.*?)</p>
+        13.C <p class="text_obisnuit">(.*?)</p>
+        14.B <p class="text_obisnuit2">(.*?)</p>
+   
+       <!-- ARTICOL FINAL -->
+
+Mergem mai departe cu fiecare tag. Comparam atat in RO cat si in EN, fiecare tag, Numaru, Ordinea si Tipul. Ajungem in RO la tagul 		
+		15.B <p class="text_obisnuit2">COCO CHANNEL Locaţia unui produs poate influenţa în mod direct impactul asupra cumpărătorilor atunci când produsul este evaluat în momentul încetării definitive a utilizării sale?</p>
+		
+Ce observam? Toate 4 taguri din fata lui sunt la fel, atat in RO cat si in EN:
+
+		11.C <p class="text_obisnuit">(.*?)</p>
+		12.C <p class="text_obisnuit">(.*?)</p>
+		13.C <p class="text_obisnuit">(.*?)</p>
+		14.B <p class="text_obisnuit2">(.*?)</p>
+		
+Dupa el, nu mai avem niciun tag, atat in RO cat si in EN.
+
+Prni urmare adaugam si acest tag in lista "Tag Wrong", si reluam numerotarea. Vom avea:
+
+
+    <!-- ARTICOL START -->
+
+        1.B <p class="text_obisnuit2"><em>(.*?)</em></p>
+        2.C <p class="text_obisnuit">(.*?)</p>
+		3.C <p class="text_obisnuit">(.*?)</p>
+		4.C <p class="text_obisnuit">(.*?)</p>
+		5.B <p class="text_obisnuit2">(.*?)</p>
+		6.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+		7.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+		8.C <p class="text_obisnuit">(.*?)</p>
+		9.C <p class="text_obisnuit">(.*?)</p>
+		10.B <p class="text_obisnuit2">(.*?)</p>
+		11.C <p class="text_obisnuit">(.*?)</p>
+		12.C <p class="text_obisnuit">(.*?)</p>
+		13.C <p class="text_obisnuit">(.*?)</p>
+		14.B <p class="text_obisnuit2">(.*?)</p>
+		
+  <!-- ARTICOL FINAL -->
+  
+d:\3\PROBEMA\do-you-attract-clients-like-a-magnet.html 
+
+    <!-- ARTICOL START -->
+
+        1.B <p class="text_obisnuit2"><em>(.*?)</em></p>
+		2.C <p class="text_obisnuit">(.*?)</p>
+        3.C <p class="text_obisnuit">(.*?)</p>
+        4.C <p class="text_obisnuit">(.*?)</p>
+        5.B <p class="text_obisnuit2">(.*?)</p>
+        6.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+        7.A <p class="text_obisnuit">(.*?)</span>(.*?)</p>
+        8.C <p class="text_obisnuit">(.*?)</p>
+        9.C <p class="text_obisnuit">(.*?)</p>
+        10.B <p class="text_obisnuit2">(.*?)</p>
+        11.C <p class="text_obisnuit">(.*?)</p>
+        12.C <p class="text_obisnuit">(.*?)</p>
+        13.C <p class="text_obisnuit">(.*?)</p>
+        14.B <p class="text_obisnuit2">(.*?)</p>
+   
+       <!-- ARTICOL FINAL -->
+	   
+Care, comparam din nou si vedem ca toate tagurile au acelasi numar, sunt in aceeasi ordine si sunt de acelasi tip.
+
+Rezultat FINAL. Tagurile de mai jos sunt in plus, in RO.
+
+5.C <p class="text_obisnuit">GASCA ESTE ACASA</p>
+11.B <p class="text_obisnuit2">BABA OARBA</p>
+17.B <p class="text_obisnuit2">COCO CHANNEL Locaţia unui produs poate influenţa în mod direct impactul asupra cumpărătorilor atunci când produsul este evaluat în momentul încetării definitive a utilizării sale?</p>
+
