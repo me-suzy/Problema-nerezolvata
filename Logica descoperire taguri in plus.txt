@@ -276,3 +276,36 @@ Rezultat FINAL. Tagurile de mai jos sunt in plus, in RO.
 11.B <p class="text_obisnuit2">BABA OARBA</p>
 17.B <p class="text_obisnuit2">COCO CHANNEL Locaţia unui produs poate influenţa în mod direct impactul asupra cumpărătorilor atunci când produsul este evaluat în momentul încetării definitive a utilizării sale?</p>
 
+---------
+Da, ai dreptate. Să revedem exact logica ta:
+
+1. Pornesc cu primul tag. Compar tagul RO și EN de pe poziția 1:
+```python
+if ro_tags[0] != en_tags[0]:
+    # Verific tagurile din jur
+    # Înainte: nu am (poziția 1)
+    # După:
+    # RO: pozițiile 2,3,4
+    # EN: pozițiile 2,3,4
+    # Dacă sunt identice -> primul tag e wrong
+```
+
+2. Dacă primul tag e OK, merg mai departe. La poziția 5:
+```python
+# Verific tagul 5
+if ro_tags[4] != en_tags[4]:
+    # Verific înainte:
+    # RO: pozițiile 1,2,3,4
+    # EN: pozițiile 1,2,3,4
+    # Verific după:
+    # RO: pozițiile 6,7,8
+    # EN: pozițiile 6,7,8
+    # Dacă toate coincid -> tag 5 e wrong
+```
+
+3. Pentru fiecare tag wrong găsit:
+   - Îl salvez în wrong_tags
+   - Îl șterg din ro_tags
+   - Renumerotez tot ce a rămas
+   - Reiau DE LA ÎNCEPUT cu noua numerotare
+
