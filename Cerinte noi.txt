@@ -556,7 +556,59 @@ Foarte bine pana aici, chiar daca tagul Conținut: <p class="text_obisnuit2">Lea
 
 Acuma codul va face al doilea pas suplimentar, cu "- Identificatorul cu cuvinte de legătură", dar numai dupa rularea si afisarea primul pas.
 
-Deci vom avea asa rezultatul final:
+La codul respectiv, vreau sa adaug un identificator numit "cuvinte de legatura comune", ca mijloc de diferentiere suplimentar, dupa ce ai folosit ceilalti identificatori.
+
+Am urmatoarele 2 liste cu cuvinte de legatura, corespondente in engleza si in romana:
+
+Română completată:
+din, se, la, care, de ce, ce, când, cum, al, și, sau, ori, să, s-a, ca, că, precum, este, în, unei, unui, prin, unde, a, sale, spre, către, mine, mea, meu, atunci, pe, va, doar, mult, puțin, fel, așa, tot, între, dintre, prea, lui, ei, unora, fiindcă, deoarece, dar, dacă, până, decât, însă, precum și, ci, încă, decât să, astfel, totuși, nici, însăși, chiar, decât că, fie, potrivit, căci, deci, astfel încât, numai, doar că, poate, însăși, cu, fac, deşi, cât, cine, ca o/ca un, înainte, după, cam/cam pe la, aproape de, înainte de a se, ca să, cât mai
+
+Engleză tradusă:
+from, it, at, which, why, what, when, how, of, and, or, either, to, has, like, that, as well as, is, in, of a (feminine), of a (masculine), through, where, to, his/hers, towards, to, mine, my (feminine), my (masculine), then, on, will, just, much, little, way, so, all, between, among, too, his, her, of some, because, since, but, if, until, than, however, as well as, but also, yet, than to, thus, still, neither, even, except that, either, according to, for, therefore, so that, only, only that, perhaps, itself, with, make, although, how, who, like/such as, before, after, about, about, near, before, to, as,
+
+Vreau sa identifici diferenta dintre taguri numarul si gasind similitudinile dintre aceste cuvinte din taguri. De exemplu, pe scurt, se dau tagurile asemanatoare dintr-un exemplu simplu:
+
+In RO am asa:
+
+<p class="text_obisnuit">Merg acasă cu mașina ca să ajung la masa de seara, înainte de a se face ora 5.</p>
+
+<p class="text_obisnuit">Merg acasă cu mașina ca să ajung la masă cât mai repede, înainte ora 12.</p>
+
+
+In EN am asa, doar una din cele doua taguri:
+
+<p class="text_obisnuit">I'm driving home to get to dinner as quickly as possible before 12 o'clock.</p>
+
+Cum ne dam seama care este tagul lipsa din EN. Simplu, numaram cuvintele de legatura din Ro, si cele din EN, apoi gasim corespondenta dintre ele in ordinea din listele date:
+
+cu -> with; ca să -> to; la -> at; cât mai -> as; înainte de a -> before;
+
+Vedem deci ca primul tag: "<p class="text_obisnuit">Merg acasă cu mașina ca să ajung la masa de seara, înainte de a se face ora 5.</p>" nu are corespondent in EN, deoarece lipseste ordinea si totalul cuvintelor de legatura din RO. Ca sa fi gasit corespondent in RO pentru primul tag, ar fi trebuit sa am in En un tag corespondent astfel: "<p class="text_obisnuit">I'm driving home to get to dinner before 5 o'clock.</p>"
+
+Atunci as fi avut, doar doua cuvinte de legatura: ca să -> to; înainte de -> before; , spre deosebire de tagul al doilea, care desi e aproape identic, are mai multe cuvinte de legatura comune.
+
+Deci, la acest tip de identificator, trebuie sa gasesc corespondenta cuvintelor dintre cele doua liste, apoi sa numar cate instante sunt in acel tag, atat in RO cat si in EN. Daca avem doua taguri, dar tagul din RO are mai multe cuvinte de legatura decat tagul similara din EN, si nu respecta aceeasi ordine, inseamna ca acel tag nu are corespondent in EN, deci lipseste.
+
+Prin urmare, la codul principal, acest nou identificator numit "cuvinte de legatura comune" va trebui sa fie pus in cod dupa ceilalti 3 identificatori. Codul va trebui sa afiseze numarul de taguri din RO care nu se gasesc in EN, si sa afiseze exact acele taguri, si continutul lor.
+
+----------
+Foloseste toți cei 4 identificatori și urmeaza exact logica specificată. Să rescriu codul urmărind exact cerințele:
+
+1. Fiecare tag trebuie să aibă toți cei 4 identificatori:
+- Numărul liniei
+- Litera (A/B/C)  
+- Identificatorul grecesc (α/β/γ)
+- Identificatorul cu cuvinte de legătură
+
+2. Compararea trebuie să se facă:
+- Secvențial, linie cu linie
+- Verificând toți cei 4 identificatori
+- Dacă unul diferă -> TAG WRONG și renumerotare
+- Continuă cu noile numere
+
+
+
+Deci vom avea asa rezultatul final intre cele doua fisiere:
 
 *** Remote Interpreter Reinitialized ***
 
