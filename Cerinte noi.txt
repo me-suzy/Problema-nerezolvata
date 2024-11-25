@@ -1,4 +1,4 @@
-atrageti-clientii-ca-un-magnet.html
+d:\3\PROBEMA\atrageti-clientii-ca-un-magnet.html 
 
     <!-- ARTICOL START -->
 
@@ -22,7 +22,7 @@ atrageti-clientii-ca-un-magnet.html
    
        <!-- ARTICOL FINAL -->
 
-do-you-attract-clients-like-a-magnet.html
+d:\3\PROBEMA\do-you-attract-clients-like-a-magnet.html 
 
     <!-- ARTICOL START -->
 
@@ -281,3 +281,8 @@ Diferența de tag-uri de tip C: 0
 Tag-ul cu "GASCA ESTE ACASA"
 Tag-ul cu "BABA OARBA" 
 Tag-ul cu "COCO CHANNEL" 
+
+
+Apoi, nu ai voie sa pui cuvinte implicite in cod, trebuie sa folosesti logica ce ti-am dat-o in instructiuni mai sus, ca sa gasesti tagurile. Deci scoate asemenea parte din cod:
+
+# Check for special cases that we know should be wrong tags if "GASCA ESTE ACASA" in ro_tag['content'] or \ "BABA OARBA" in ro_tag['content'] or \ "COCO CHANNEL" in ro_tag['content']: wrong_tags.append(ro_tag) current_ro_index += 1 continue
