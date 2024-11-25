@@ -279,11 +279,309 @@ Diferența de tag-uri de tip C: 0
 
 În RO există în plus față de EN următoarele:
 
-Tag-ul cu "GASCA ESTE ACASA"
-Tag-ul cu "BABA OARBA" 
-Tag-ul cu "COCO CHANNEL" 
+Tag-ul 5(C)(α) <p class="text_obisnuit">GASCA ESTE ACASA</p>
+Tag-ul 10(C)(γ) <p class="text_obisnuit">BABA OARBA Produsul pe care îl promovezi este rezultatul involuntar al unei erori de BABA OARBA percepţie şi de reproducere a unei imagini care invită la extragerea unei concluzii BABA OARBA sumbre privitoare la amplasamentul său? BABA OARBA BABA OARBA BABA OARBA</p>
+Tag-ul 15(C)(γ) <p class="text_obisnuit">COCO CHANNEL Locaţia unui produs poate influenţa în mod direct impactul asupra cumpărătorilor atunci când produsul este evaluat în momentul încetării definitive a utilizării sale?</p>
 
 
 Apoi, nu ai voie sa pui cuvinte implicite in cod, trebuie sa folosesti logica ce ti-am dat-o in instructiuni mai sus, ca sa gasesti tagurile. Deci scoate asemenea parte din cod:
 
 # Check for special cases that we know should be wrong tags if "GASCA ESTE ACASA" in ro_tag['content'] or \ "BABA OARBA" in ro_tag['content'] or \ "COCO CHANNEL" in ro_tag['content']: wrong_tags.append(ro_tag) current_ro_index += 1 continue
+
+------------
+
+deci tu ai probleme la linia asta:
+
+RO:
+
+		<p class="text_obisnuit2">BABA OARBA Produsul pe care îl promovezi este rezultatul involuntar al unei erori de BABA OARBA percepţie şi de reproducere a unei imagini care invită la extragerea unei concluzii BABA OARBA sumbre privitoare la amplasamentul său? BABA OARBA BABA OARBA BABA OARBA</p>
+
+		<p class="text_obisnuit2">Leadership: Produsul pe care îl promovezi este rezultatul involuntar al unei erori de percepţie şi de reproducere a unei imagini care invită la extragerea unei concluzii sumbre privitoare la amplasamentul său?</p>
+
+EN:
+
+        <p class="text_obisnuit2">Leadership: Is the product you are promoting the involuntary result of an image perception and reproduction error that calls for a bleak conclusion regarding its location?</p>
+
+In instructiuni am spus:
+
+În regulă, continui analiza:
+
+10(C)(γ) <p class="text_obisnuit">BABA OARBA Produsul pe care îl promovezi este rezultatul involuntar al unei erori de BABA OARBA percepţie şi de reproducere a unei imagini care invită la extragerea unei concluzii BABA OARBA sumbre privitoare la amplasamentul său? BABA OARBA BABA OARBA BABA OARBA</p>
+
+Comparăm cu EN:
+
+Nu găsim un echivalent direct cu aceeași structură, deci acesta va fi pus în "TAG WRONG" și continuăm cu următorul, păstrând numerotarea.
+
+10(C)(γ) <p class="text_obisnuit">Leadership: Produsul pe care îl promovezi este rezultatul involuntar al unei erori de percepţie şi de reproducere a unei imagini care invită la extragerea unei concluzii sumbre privitoare la amplasamentul său?</p>
+
+Comparăm cu EN:
+
+10(C)(γ) <p class="text_obisnuit">Leadership: Is the product you are promoting the involuntary result of an image perception and reproduction error that calls for a bleak conclusion regarding its location?</p>
+
+Avem match. Mergem mai departe cu următoarea linie din RO:
+
+De ce la tine gaseste tagul urmator celui care trebuie?
+
+Deoarece amandoua sunt taguri foarte asemanatoare, au aceeasi 4 identificatori:
+
+   - Numărul liniei 
+
+   - Litera (A/B/C)
+
+   - Identificatorul grecesc (α/β/γ) bazat pe numărul de cuvinte
+
+   - Cuvintele de legătură comune
+
+Prin urmare este un caz exceptat, dificil. Pentru asemenea cazuri trebuie sa gandim altfel, pentru a distinge pe cel unic care este in plus.
+---------
+
+Codul Python:
+
+
+
+from bs4 import BeautifulSoup
+
+import re
+
+def get_word_count(text):
+
+    """Count words in text after removing HTML tags."""
+
+    clean_text = re.sub(r'<[^>]+>', '', text)
+
+    words = len(clean_text.split())
+
+    return words
+
+def get_greek_identifier(word_count):
+
+    if word_count < 7:
+
+        return 'α'
+
+    elif word_count <= 14:
+
+        return 'β'
+
+    else:
+
+        return 'γ'
+
+def get_tag_type(tag):
+
+    if tag.find('span', class_='text_obisnuit2'):
+
+        return 'A'
+
+    elif tag.get('class') and 'text_obisnuit2' in tag['class']:
+
+        return 'B'
+
+    elif tag.get('class') and 'text_obisnuit' in tag['class']:
+
+        return 'C'
+
+    return 'C'
+
+def extract_article_tags(file_path):
+
+    with open(file_path, 'r', encoding='utf-8') as file:
+
+        soup = BeautifulSoup(file.read(), 'html.parser')
+
+    article_start = soup.find(string=lambda text: text and "ARTICOL START" in text)
+
+    article_end = soup.find(string=lambda text: text and "ARTICOL FINAL" in text)
+
+    if not (article_start and article_end):
+
+        return []
+
+    tags = []
+
+    current_element = article_start.next_element
+
+    while current_element and current_element != article_end:
+
+        if current_element.name == 'p':
+
+            content = str(current_element)
+
+            word_count = get_word_count(content)
+
+            tag_type = get_tag_type(current_element)
+
+            greek_id = get_greek_identifier(word_count)
+
+            tags.append({
+
+                'content': content,
+
+                'tag_type': tag_type,
+
+                'greek_id': greek_id
+
+            })
+
+        current_element = current_element.next_element
+
+    return tags
+
+def compare_tags(ro_file, en_file):
+
+    ro_tags = extract_article_tags(ro_file)
+
+    en_tags = extract_article_tags(en_file)
+
+    wrong_tags = []
+
+    matched_tags = []
+
+    en_index = 0
+
+    # Continuăm până procesăm toate tag-urile RO sau EN
+
+    while ro_tags and en_index < len(en_tags):
+
+        ro_tag = ro_tags[0]
+
+        ro_tag['line_number'] = len(matched_tags) + len(wrong_tags) + 1
+
+        en_tag = en_tags[en_index]
+
+        if ro_tag['tag_type'] == en_tag['tag_type'] and ro_tag['greek_id'] == en_tag['greek_id']:
+
+            # Avem match
+
+            matched_tags.append((ro_tag, en_tag))
+
+            ro_tags.pop(0)
+
+            en_index += 1
+
+        else:
+
+            # Nu avem match - punem în wrong și reluăm de la început
+
+            wrong_tags.append(ro_tag)
+
+            ro_tags.pop(0)
+
+            # Nu incrementăm en_index - următorul tag RO va fi comparat cu același tag EN
+
+    # Adăugăm tag-urile RO rămase la wrong_tags
+
+    for tag in ro_tags:
+
+        tag['line_number'] = len(matched_tags) + len(wrong_tags) + 1
+
+        wrong_tags.append(tag)
+
+    return matched_tags, wrong_tags
+
+def print_results(matched_tags, wrong_tags):
+
+    print("\nTag-uri care nu au corespondent în EN (WRONG TAGS):")
+
+    for tag in sorted(wrong_tags, key=lambda x: x['line_number']):
+
+        print(f"\nLinia {tag['line_number']}({tag['tag_type']})({tag['greek_id']})")
+
+        print(f"Conținut: {tag['content'][:100]}...")
+
+    ro_counts = {'A': 0, 'B': 0, 'C': 0}
+
+    en_counts = {'A': 0, 'B': 0, 'C': 0}
+
+    for ro_tag, en_tag in matched_tags:
+
+        ro_counts[ro_tag['tag_type']] += 1
+
+        en_counts[en_tag['tag_type']] += 1
+
+    for tag in wrong_tags:
+
+        ro_counts[tag['tag_type']] += 1
+
+    print("\nStatistici:")
+
+    print("\nTag-uri în RO:", ro_counts)
+
+    print("Tag-uri în EN:", en_counts)
+
+    for tag_type in 'ABC':
+
+        diff = ro_counts[tag_type] - en_counts[tag_type]
+
+        print(f"Diferența pentru tag-uri de tip {tag_type}: {diff}")
+
+if name == "__main__":
+
+    ro_file = 'd:/3/PROBEMA/atrageti-clientii-ca-un-magnet.html'
+
+    en_file = 'd:/3/PROBEMA/do-you-attract-clients-like-a-magnet.html'
+
+    matched_tags, wrong_tags = compare_tags(ro_file, en_file)
+
+    print_results(matched_tags, wrong_tags)
+	
+	
+
+Deci primul pas este sa gasesti liniile cu codul acesta. DUpa ce gasesti liniile, la final de cod, trebuie sa adaugi o noua veificare cu "- Identificatorul cu cuvinte de legătură". Si nu vreau sa afisezi cuvintele de legatura, si doar tagurile.
+
+Deci sa spunem ca prima parte a codului afiseaza asta:
+
+*** Remote Interpreter Reinitialized ***
+
+Tag-uri care nu au corespondent în EN (WRONG TAGS):
+
+Linia 5(C)(α)
+Conținut: <p class="text_obisnuit">GASCA ESTE ACASA</p>...
+
+Linia 12(B)(γ)
+Conținut: <p class="text_obisnuit2">Leadership: Produsul pe care îl promovezi este rezultatul involuntar al un...
+
+Linia 17(B)(γ)
+Conținut: <p class="text_obisnuit2">COCO CHANNEL Locaţia unui produs poate influenţa în mod direct impactul as...
+
+Statistici:
+
+Tag-uri în RO: {'A': 2, 'B': 6, 'C': 9}
+Tag-uri în EN: {'A': 2, 'B': 4, 'C': 8}
+Diferența pentru tag-uri de tip A: 0
+Diferența pentru tag-uri de tip B: 2
+Diferența pentru tag-uri de tip C: 1
+
+Foarte bine pana aici, chiar daca tagul Conținut: <p class="text_obisnuit2">Leadership: Produsul pe care îl promovezi este rezultatul involuntar al un..</p> nu e cel corect.
+
+Acuma codul va face al doilea pas suplimentar, cu "- Identificatorul cu cuvinte de legătură", dar numai dupa rularea si afisarea primul pas.
+
+Deci vom avea asa rezultatul final:
+
+*** Remote Interpreter Reinitialized ***
+
+Tag-uri care nu au corespondent în EN (WRONG TAGS):
+
+Linia 5(C)(α)
+Conținut: <p class="text_obisnuit">GASCA ESTE ACASA</p>...
+
+Linia 12(B)(γ)
+Conținut: <p class="text_obisnuit2">Leadership: Produsul pe care îl promovezi este rezultatul involuntar al un...
+
+Linia 17(B)(γ)
+Conținut: <p class="text_obisnuit2">COCO CHANNEL Locaţia unui produs poate influenţa în mod direct impactul as...
+
+Statistici:
+
+Tag-uri în RO: {'A': 2, 'B': 6, 'C': 9}
+Tag-uri în EN: {'A': 2, 'B': 4, 'C': 8}
+Diferența pentru tag-uri de tip A: 0
+Diferența pentru tag-uri de tip B: 2
+Diferența pentru tag-uri de tip C: 1
+
+Tag-uri care nu au corespondent în EN (metoda numere):
+
+<p class="text_obisnuit2">BABA OARBA Produsul pe care îl promovezi este rezultatul involuntar al unei erori de BABA OARBA percepţie şi de reproducere a unei imagini care invită la extragerea unei concluzii BABA OARBA sumbre privitoare la amplasamentul său? BABA OARBA BABA OARBA BABA OARBA</p>
+
+
+
