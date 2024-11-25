@@ -529,7 +529,7 @@ if name == "__main__":
 
 Deci primul pas este sa gasesti liniile cu codul acesta. DUpa ce gasesti liniile, la final de cod, trebuie sa adaugi o noua veificare cu "- Identificatorul cu cuvinte de legătură". Si nu vreau sa afisezi cuvintele de legatura, si doar tagurile.
 
-Deci sa spunem ca prima parte a codului afiseaza asta:
+Deci sa spunem ca prima parte a codului afiseaza asta, dar nu gaseste decat doua taguri corecte, caci Linia 12(B)(γ) este gresit in acest caz:
 
 *** Remote Interpreter Reinitialized ***
 
@@ -608,7 +608,7 @@ Foloseste toți cei 4 identificatori și urmeaza exact logica specificată. Să 
 
 
 
-Deci vom avea asa rezultatul final intre cele doua fisiere:
+Deci asa trebuie sa arate rezultatul final intre cele doua fisiere:
 
 *** Remote Interpreter Reinitialized ***
 
