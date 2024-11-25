@@ -635,5 +635,12 @@ Tag-uri care nu au corespondent în EN (metoda numere):
 
 <p class="text_obisnuit2">BABA OARBA Produsul pe care îl promovezi este rezultatul involuntar al unei erori de BABA OARBA percepţie şi de reproducere a unei imagini care invită la extragerea unei concluzii BABA OARBA sumbre privitoare la amplasamentul său? BABA OARBA BABA OARBA BABA OARBA</p>
 
+Noua logică:
+
+Pentru fiecare grup de taguri cu același tip și identificator:
+Compar conținutul și găsesc cuvintele comune
+Dacă au multe cuvinte comune (>80%)
+Compar ce cuvinte sunt unice pentru fiecare tag
+Dacă un tag are mult mai multe cuvinte unice, acela e probabil tagul problematic
 
 
