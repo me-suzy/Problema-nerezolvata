@@ -270,7 +270,18 @@ d:\3\PROBEMA\do-you-attract-clients-like-a-magnet.html
 	   
 Care, comparam din nou si vedem ca toate tagurile au acelasi numar, sunt in aceeasi ordine si sunt de acelasi tip.
 
-Rezultat FINAL. Tagurile de mai jos sunt in plus, in RO.
+Rezultat FINAL, exact asta trebuie sa afiseze codul:
+
+
+Statistici:
+
+Tag-uri în RO: {'A': 2, 'B': 6, 'C': 9}
+Tag-uri în EN: {'A': 2, 'B': 4, 'C': 8}
+Diferența pentru tag-uri de tip A: 0
+Diferența pentru tag-uri de tip B: 2
+Diferența pentru tag-uri de tip C: 1
+
+Tag-uri care nu au corespondent în EN (WRONG TAGS):
 
 5.C <p class="text_obisnuit">GASCA ESTE ACASA</p>
 11.B <p class="text_obisnuit2">BABA OARBA</p>
@@ -322,3 +333,16 @@ Doar acest tag diferă?
 Dacă da -> tag wrong, îl eliminăm și RENUMEROTĂM tot
 Reluăm procesul DE LA ÎNCEPUT cu noua numerotare
 
+---
+Trebuie să verificăm tag cu tag în ordine
+Când găsim un tag wrong:
+
+Îl adăugăm la lista de wrong tags
+Îl ștergem din lista RO
+RENUMEROTĂM TOATE tagurile rămase
+REÎNCEPEM VERIFICAREA DE LA ÎNCEPUT cu noua numerotare
+
+-------
+Nu ai voie sa pui implicit nicio sugestie in codul Python despre liniile alea cu tag WRONG. Deoarece liniile se schimba. Am 200000 de fisiere, cu taguri diferite, pe alte pozitii. Deci degeaba adaugi implicit valori pe care stii ca le au tagurile din acest exemplu, fiindca in alt exemplu nu vor fi bune.
+
+Asadar, codul trebuie sa gaseasca singur tagurile WRONG, urmand logica si identificatorii din instructiuni.
