@@ -308,4 +308,17 @@ if ro_tags[4] != en_tags[4]:
    - Îl șterg din ro_tags
    - Renumerotez tot ce a rămas
    - Reiau DE LA ÎNCEPUT cu noua numerotare
+   
+Rezumat logica pe care am explicat-o:
+
+Să verificăm tag cu tag în ordine
+Pentru fiecare tag verificăm:
+
+Tagurile din față (dacă există) sunt identice în RO și EN?
+Tagurile din spate (dacă există) sunt identice în RO și EN?
+Doar acest tag diferă?
+
+
+Dacă da -> tag wrong, îl eliminăm și RENUMEROTĂM tot
+Reluăm procesul DE LA ÎNCEPUT cu noua numerotare
 
