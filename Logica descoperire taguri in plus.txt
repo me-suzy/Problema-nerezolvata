@@ -2,7 +2,7 @@
    - Numărul liniei
    - Litera (A/B/C)
    - Identificatorul grecesc (α/β/γ) bazat pe numărul de cuvinte
-   - Identificatorul nou bazat pe cuvintele de legătură
+
 
 2. Să compar tag-urile secvențial, linie cu linie, între RO și EN:
    - Verific dacă tag-urile de pe aceeași linie au toți identificatorii identici
@@ -354,3 +354,37 @@ Nu uita: la primul si la ultimul tag din RO, si din EN, trebuie sa verifici doar
 Sau, daca vezi ca primele 4 taguri nu au alte 4 taguri inaintea lor, fiindca primul tag, al doilea tag, al treilea tag, al 4-lea tag, nu au cum sa aiba 4 taguri inaintea lor. In acest caz compari cu 4 taguri dupa ele, atat in RO cat si in EN.
 
 La fel, ultimele 4 taguri. Ele nu pot avea 4 taguri dupa ele, fiindca sunt ultimele. In acest caz, vei compara cu 4 taguri inaintea lor, dar nu de la inceput, nu de la primul tag, ci doar cu 4 taguri in urma, atat in RO cat si in EN.
+
+Rezumat:
+
+Identificatorii pentru fiecare tag:
+
+Numărul liniei
+Litera (A/B/C) în funcție de structura tag-ului
+Identificatorul grecesc (α/β/γ) în funcție de numărul de cuvinte
+
+
+Compararea tag-urilor linie cu linie între fișierele RO și EN:
+
+Verificăm dacă toți identificatorii sunt identici pentru tag-urile de pe aceeași poziție
+Dacă identificatorii diferă, marcăm tag-ul RO ca "în plus"
+Continuăm comparația cu următorul tag
+
+
+Pentru tag-uri cu text similar dar identificatori diferiți:
+
+Verificăm secvența și numărul de cuvinte de legătură în ambele limbi
+Dacă nu se potrivesc, marcăm tag-ul RO ca "în plus"
+
+
+După fiecare tag marcat ca "în plus":
+
+Renumerotăm tag-urile rămase din RO
+Continuăm comparația cu noua numerotare
+
+
+EXCEPȚIE importantă:
+
+Pentru primele și ultimele 4 taguri din RO și EN, verificăm doar contextul (tag-urile dinaintea și după ele)
+Nu reluăm comparația de la început când găsim un tag "în plus" la începutul sau sfârșitul listei
+Pentru tagurile din mijloc, reluăm comparația de la început când găsim un tag "în plus"
