@@ -346,3 +346,11 @@ REÎNCEPEM VERIFICAREA DE LA ÎNCEPUT cu noua numerotare
 Nu ai voie sa pui implicit nicio sugestie in codul Python despre liniile alea cu tag WRONG. Deoarece liniile se schimba. Am 200000 de fisiere, cu taguri diferite, pe alte pozitii. Deci degeaba adaugi implicit valori pe care stii ca le au tagurile din acest exemplu, fiindca in alt exemplu nu vor fi bune.
 
 Asadar, codul trebuie sa gaseasca singur tagurile WRONG, urmand logica si identificatorii din instructiuni.
+
+CAZ EXECEPTAT: FPARTE IMPORTANT:
+
+Nu uita: la primul si la ultimul tag din RO, si din EN, trebuie sa verifici doar 4 taguri dinaintea lor, simetria si corespondenta cu EN. Dar nu faci bucla, nu o iei de la inceput cu numerotarea cand ajungi la ultimul. 
+
+Sau, daca vezi ca primele 4 taguri nu au alte 4 taguri inaintea lor, fiindca primul tag, al doilea tag, al treilea tag, al 4-lea tag, nu au cum sa aiba 4 taguri inaintea lor. In acest caz compari cu 4 taguri dupa ele, atat in RO cat si in EN.
+
+La fel, ultimele 4 taguri. Ele nu pot avea 4 taguri dupa ele, fiindca sunt ultimele. In acest caz, vei compara cu 4 taguri inaintea lor, dar nu de la inceput, nu de la primul tag, ci doar cu 4 taguri in urma, atat in RO cat si in EN.
