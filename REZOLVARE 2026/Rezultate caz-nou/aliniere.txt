@@ -1,0 +1,17 @@
+---------Fișier: caz-nou-RO.html ------- PROBLEMA----------
+raport mediu cuvinte RO/EN = 0.917   cost total = 6.530
+
+RO 1(B)(β)      14 cuv. | EN 1(B)(γ)      18 cuv. | match   cost=0.149 | 'Adu-i pe oameni la pragul apropierii de ' ~ 'Bring people to the brink of approaching'
+RO 2(C)(γ)      40 cuv. | EN 2(C)(γ)      39 cuv. | match   cost=0.162 | 'Într-o zi au fost capturați 18 albatroși' ~ 'One day, 18 albatrosses were captured on'
+RO 3(C)(γ)      18 cuv. | ---                    | TAG WRONG (în plus în RO)   | 'Это предложение осталось на русском языке, потому что кто-то'
+RO 4(A)(γ)      16 cuv. | EN 3(A)(γ)      17 cuv. | match   cost=0.230 | 'Lеadеrship: Imaginea pe care o atribui p' ~ 'Leadership: Does the image you attribute'
+RO 5(C)(γ)      23 cuv. | EN 4(C)(γ)      23 cuv. | match   cost=0.000 | 'Oamenii se împart în două categorii: oam' ~ 'Oamenii se împart în două categorii: oam'
+RO 6(C)(γ)      23 cuv. | EN 5(C)(γ)      23 cuv. | match   cost=0.000 | 'The sea looks at the sand without impove' ~ 'The sea looks at the sand without impove'
+RO 7(C)(β)      13 cuv. | EN 6(C)(γ)      15 cuv. | match   cost=1.200 | 'Mai multe detalii despre acest subiect g' ~ 'More details on this subject can be foun'
+RO 8(B)(γ)      28 cuv. | EN 7(B)(γ)      19 cuv. | match   cost=1.559 | '+++ STRUTUL IMENS +++ STRUTUL IMENS +++ ' ~ 'Is the product you are promoting the inv'
+---                    | EN 8(C)(γ)      15 cuv. | doar în EN                  | 'Γνῶθι σεαυτόν, έλεγαν οι αρχαίοι Έλληνες, και αυτή η φράση π'
+RO 9(C)(γ)      21 cuv. | EN 9(C)(γ)      23 cuv. | match   cost=0.000 | 'Cel mai important lucru pe care trebuie ' ~ 'The most important thing you have to do '
+RO 10(C)(β)     10 cuv. | EN 10(C)(β)     13 cuv. | match   cost=0.154 | '— Iată răspunsul! gândi contele. Îți mul' ~ '— Here is the answer! thought the count.'
+RO 11(C)(γ)     17 cuv. | EN 11(C)(γ)     19 cuv. | match   cost=0.618 | '★★★ Nisipul nu se lasă dus în larg de va' ~ 'The sand is not carried away by the wave'
+RO 12(C)(γ)     17 cuv. | EN 12(C)(γ)     22 cuv. | match   cost=0.458 | 'Întâlnirea dintre Eisenstein și Prokofie' ~ 'The meeting between the director and the'
+

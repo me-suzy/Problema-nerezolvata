@@ -1,0 +1,63 @@
+---------Fișier: caz-nou-RO.html ------- PROBLEMA----------
+
+Statistici:
+
+Tag-uri în RO: {'A': 1, 'B': 2, 'C': 9}
+Tag-uri în EN: {'A': 1, 'B': 2, 'C': 9}
+Diferența pentru tag-uri de tip A: 0
+Diferența pentru tag-uri de tip B: 0
+Diferența pentru tag-uri de tip C: 0
+Cost mediu al perechilor RO-EN: 0.41 (11 perechi; peste 0.6 înseamnă, de regulă, alt text)
+
+În RO există în plus față de EN următoarele: 1 tag de tipul (C)
+
+Tag-uri care nu au corespondent în EN (WRONG TAGS):
+
+3.C <p class="text_obisnuit">Это предложение осталось на русском языке, потому что кто-то вставил его сюда по ошибке и никто не заметил.</p>
+
+Tag-uri din EN care nu au corespondent în RO:
+
+8.C <p class="text_obisnuit">Γνῶθι σεαυτόν, έλεγαν οι αρχαίοι Έλληνες, και αυτή η φράση παραμένει η αρχή κάθε ηγεσίας.</p>
+
+Perechi suspecte (cost >= 1.5; de verificat manual):
+
+RO 8.B (28 cuv.) <-> EN 7.B (19 cuv.) cost=1.56 | +++ STRUTUL IMENS +++ STRUTUL IMENS +++ STRUTUL IM ~ Is the product you are promoting the involuntary r
+
+Observații (clauze noi) pe taguri:
+
+RO 3.C (18 cuv.) | 'Это предложение осталось на русском языке, по'
+      - alfabet chirilic (87 litere)
+RO 4.A (16 cuv.) | 'Lеadеrship: Imaginea pe care o atribui produs'
+      - 2 litere din alt alfabet strecurate in text latin (chirilic 2)
+RO 6.C (23 cuv.) | 'The sea looks at the sand without impoverishi'
+      - RO fara nicio diacritica (text in alta limba?)
+RO 8.B (28 cuv.) | '+++ STRUTUL IMENS +++ STRUTUL IMENS +++ STRUT'
+      - cuvantul 'strutul imens' apare 3 ori (text inserat?)
+      - siruri de simboluri inserate: +++
+RO 11.C (17 cuv.) | '★★★ Nisipul nu se lasă dus în larg de valuril'
+      - 3 simboluri/emoji
+EN 4.C (23 cuv.) | 'Oamenii se împart în două categorii: oameni ș'
+      - 7 diacritice romanesti in EN (paragraf netradus?)
+EN 8.C (15 cuv.) | 'Γνῶθι σεαυτόν, έλεγαν οι αρχαίοι Έλληνες, και'
+      - alfabet grec (72 litere)
+
+Clauze noi active pe perechi (cost suplimentar fata de scriptul de baza):
+
+RO 2.C <-> EN 2.C  cost total=0.16  din care clauze noi=-2.50
+      - numere normalizate: -2.50  (brut 5 diferente, normalizat 0)
+RO 4.A <-> EN 3.A  cost total=0.23  din care clauze noi=+0.20
+      - litere straine: +0.20  (2 vs 0)
+RO 5.C <-> EN 4.C  cost total=0.00  din care clauze noi=+0.00
+      - identic: +0.00  (16/16 cuvinte identice: EN = RO, netradus)
+RO 6.C <-> EN 5.C  cost total=0.00  din care clauze noi=+0.00
+      - identic: +0.00  (17/17 cuvinte identice: EN = RO, netradus)
+RO 7.C <-> EN 6.C  cost total=1.20  din care clauze noi=+1.20
+      - link-uri: +1.20  (https://neculaifantanaru.com/en/the-law-of-value.html https://neculaifantanaru.com/legea-valorii.html)
+RO 8.B <-> EN 7.B  cost total=1.56  din care clauze noi=+0.30
+      - repetitii: +0.15  (1 vs 0 cuvinte repetate)
+      - markere: +0.15  (+++)
+RO 11.C <-> EN 11.C  cost total=0.62  din care clauze noi=+0.60
+      - simboluri: +0.60  (3 vs 0)
+RO 12.C <-> EN 12.C  cost total=0.46  din care clauze noi=+0.30
+      - nume proprii: +0.30  (eisenstein prokofiev)
+

@@ -1,0 +1,21 @@
+---------Fișier: atrageti-clientii-ca-un-magnet.html ------- PROBLEMA----------
+raport mediu cuvinte RO/EN = 0.982   cost total = 6.648
+
+RO 1(B)(γ)      31 cuv. | EN 1(B)(γ)      34 cuv. | match   cost=0.071 | 'Încearcă să dai valoare produsului tău p' ~ 'Try to give value to your product by wha'
+RO 2(C)(γ)     100 cuv. | EN 2(C)(γ)     116 cuv. | match   cost=0.429 | 'Ce s-ar întâmpla dacă după multe experim' ~ 'What would happen if after many experime'
+RO 3(C)(γ)      80 cuv. | EN 3(C)(γ)      71 cuv. | match   cost=0.000 | 'Însă acum vine partea cea mai interesant' ~ 'But now comes the most interesting part.'
+RO 4(C)(γ)      42 cuv. | EN 4(C)(γ)      33 cuv. | match   cost=0.253 | 'Da, vor cumpăra, şi încă hotărât. De ce?' ~ 'Yes they will, and even more determined.'
+RO 5(C)(α)       3 cuv. | ---                    | TAG WRONG (în plus în RO)   | '+++GASCA ESTE ACASA'
+RO 6(B)(γ)      26 cuv. | EN 5(B)(γ)      26 cuv. | match   cost=0.000 | 'Leadership: Imaginea pe care o atribui p' ~ 'Leadership: Does the image you attribute'
+RO 7(A)(γ)      43 cuv. | EN 6(A)(γ)      41 cuv. | match   cost=0.065 | 'Zona de aplicabilitate a unui produs poa' ~ 'The application area of a product can be'
+RO 8(A)(γ)      52 cuv. | EN 7(A)(γ)      54 cuv. | match   cost=0.019 | 'Sau, aceeaşi zonă de aplicabilitate a un' ~ 'Or, the same product applicability area '
+RO 9(C)(γ)      19 cuv. | EN 8(C)(γ)      22 cuv. | match   cost=0.121 | 'Totul ar fi mult mai simplu dacă am reuş' ~ 'Everything would be much easier if we co'
+RO 10(C)(γ)     69 cuv. | EN 9(C)(γ)     108 cuv. | match   cost=0.425 | 'Se pare că pe orice piaţă unde primează ' ~ 'It seems that on any market where the qu'
+RO 11(B)(γ)     42 cuv. | EN 10(B)(γ)     26 cuv. | match   cost=1.834 | '+++BABA OARBA Produsul pe care îl promov' ~ 'Leadership: Is the product you are promo'
+RO 12(B)(γ)     40 cuv. | ---                    | TAG WRONG (în plus în RO)   | '+++ STRUTUL IMENS ">+++ STRUTUL IMENS ">+++ STRUTUL IMENS Le'
+RO 13(C)(γ)     84 cuv. | EN 11(C)(γ)    105 cuv. | match   cost=0.152 | 'Cel mai important lucru pe care trebuie ' ~ 'The most important thing you have to do '
+RO 14(C)(γ)     76 cuv. | EN 12(C)(γ)     69 cuv. | match   cost=0.114 | 'Indiferent cât de neloială ar fi concure' ~ 'No matter how unmoral the competition wo'
+RO 15(C)(γ)     72 cuv. | EN 13(C)(γ)     62 cuv. | match   cost=0.166 | 'Înainte de a face pasul cel mare întreab' ~ 'Before making the big step, ask yourself'
+RO 16(B)(γ)     24 cuv. | EN 14(B)(γ)     27 cuv. | match   cost=0.000 | 'Întrebare: Locaţia unui produs poate inf' ~ 'Question: Does the location of a product'
+RO 17(B)(γ)     25 cuv. | ---                    | TAG WRONG (în plus în RO)   | '+++COCO CHANNEL Locaţia unui produs poate influenţa în mod d'
+

@@ -1,0 +1,42 @@
+---------Fișier: atrageti-clientii-ca-un-magnet.html ------- PROBLEMA----------
+
+Statistici:
+
+Tag-uri în RO: {'A': 2, 'B': 6, 'C': 9}
+Tag-uri în EN: {'A': 2, 'B': 4, 'C': 8}
+Diferența pentru tag-uri de tip A: 0
+Diferența pentru tag-uri de tip B: 2
+Diferența pentru tag-uri de tip C: 1
+Cost mediu al perechilor RO-EN: 0.26 (14 perechi; peste 0.6 înseamnă, de regulă, alt text)
+
+În RO există în plus față de EN următoarele: 2 taguri de tipul (B) și 1 tag de tipul (C)
+
+Tag-uri care nu au corespondent în EN (WRONG TAGS):
+
+5.C <p class="text_obisnuit">+++GASCA ESTE ACASA</p>
+12.B <p class="text_obisnuit2">+++ STRUTUL IMENS ">+++ STRUTUL IMENS ">+++ STRUTUL IMENS Leadership: Produsul pe care îl promovezi este rezultatul involuntar al unei erori de percepţie şi de reproducere a unei imagini care invită la extragerea unei concluzii sumbre privitoare la amplasamentul său?</p>
+17.B <p class="text_obisnuit2">+++COCO CHANNEL Locaţia unui produs poate influenţa în mod direct impactul asupra cumpărătorilor atunci când produsul este evaluat în momentul încetării definitive a utilizării sale?</p>
+
+Perechi suspecte (cost >= 1.5; de verificat manual):
+
+RO 11.B (42 cuv.) <-> EN 10.B (26 cuv.) cost=1.83 | +++BABA OARBA Produsul pe care îl promovezi este r ~ Leadership: Is the product you are promoting the i
+
+Observații (clauze noi) pe taguri:
+
+RO 5.C (3 cuv.) | '+++GASCA ESTE ACASA'
+      - siruri de simboluri inserate: +++
+RO 11.B (42 cuv.) | '+++BABA OARBA Produsul pe care îl promovezi e'
+      - cuvantul 'baba oarba' apare 6 ori (text inserat?)
+      - siruri de simboluri inserate: +++
+RO 12.B (40 cuv.) | '+++ STRUTUL IMENS ">+++ STRUTUL IMENS ">+++ S'
+      - cuvantul 'strutul imens' apare 3 ori (text inserat?)
+      - siruri de simboluri inserate: +++
+RO 17.B (25 cuv.) | '+++COCO CHANNEL Locaţia unui produs poate inf'
+      - siruri de simboluri inserate: +++
+
+Clauze noi active pe perechi (cost suplimentar fata de scriptul de baza):
+
+RO 11.B <-> EN 10.B  cost total=1.83  din care clauze noi=+0.30
+      - repetitii: +0.15  (1 vs 0 cuvinte repetate)
+      - markere: +0.15  (+++)
+
