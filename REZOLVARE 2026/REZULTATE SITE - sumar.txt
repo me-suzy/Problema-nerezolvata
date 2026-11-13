@@ -1,0 +1,66 @@
+Rulare pe site-ul real (13 noiembrie 2026, dupa verificarea perechilor suspecte; prima rulare: 12 noiembrie)
+RO: E:\Carte\BB\17 - Site Leadership\Principal\ro   (1967 fisiere html)
+EN: E:\Carte\BB\17 - Site Leadership\Principal\en   (1913 fisiere html)
+
+Perechi RO-EN gasite (din sectiunea FLAGS, href=".../en/xxx.html"): 1928
+Fisiere RO fara pereche EN (lipsa fisierului EN sau href gresit):     39   -> listate in consola (Rezultate comparatii site - strict - consola.txt)
+Fisiere RO al caror link EN duce la traducerea ALTUI articol:         17   -> listate la sfarsitul lui rezultate.txt (vezi mai jos)
+Fisiere fara marcaje ARTICOL START/FINAL (index, pagini de sectiune):  50   -> listate in consola
+Fisiere comparate efectiv:                                           1861
+Fisiere fara nicio diferenta:                                        1455
+
+                                            STRICT (Rezultate comparatii site - strict\)   FLEXIBIL (Rezultate comparatii site - tip-flexibil\)
+Taguri RO fara corespondent in EN (WRONG)     776 in 361 fisiere      292 in 138 fisiere
+Taguri EN fara corespondent in RO             611 in 316 fisiere      127 in  80 fisiere
+Perechi cu clasa diferita (aceeasi traducere)   -                     516 in 262 fisiere
+Perechi in alta ordine (paragraf mutat)         5                       4
+Perechi suspecte (cost >= 1.5, de verificat)   20 in  19 fisiere       27 in  21 fisiere
+
+(Prima rulare, inainte de controlul link-ului: flexibil 377 WRONG in 155 fisiere, 242 "doar in EN", 43 suspecte.
+ Diferenta este zgomotul produs de cele 17 fisiere RO cu link EN gresit.)
+
+STRICT   = regula din specificatii: litera A/B/C trebuie sa coincida. Acelasi paragraf cu alta clasa CSS
+           apare de doua ori (WRONG in RO + "doar in EN").
+FLEXIBIL = --tip-flexibil: paragraful cu alta clasa e imperecheat cu traducerea lui si raportat separat,
+           la "Perechi cu clasa diferita". Lista WRONG ramane doar cu paragrafele care chiar lipsesc din EN.
+
+Fisiere RO cu link EN gresit (steagul EN din RO duce la traducerea altui articol; aceste articole NU au traducere):
+   cartea-pe-care-focul-nu-o-poate-atinge, clepsidra-care-sfideaza-timpul, cum-descoperi-rostul-unei-lumi-ce-se-repeta,
+   donum-serotinum, fiat-iustitia, habajdir, heroes-intus, labor-sine-teste, legea-deconspirarii,
+   legea-suprema-a-creatiei, prin-foc-si-sabie, principiul-dominoului, profetia-ghicitoarei-din-desert,
+   scala-trium-nominum, signa-divinae-vocationis, sub-custodia-dei
+   + pagina cum-arata-imagini-robineti-centrala-termica-ariston (nu e articol).
+   La fiecare, rezultate.txt spune care este fisierul RO "adevarat" al EN-ului indicat.
+Fisier cu link reciproc corect, dar cu alt text in EN (cost mediu 0.96): supletea-deosebita-a-constructiei-de-montaj
+   (corpul articolului EN este despre Zedekiah, nu despre montajul cinematografic). Si acesta e fara traducere.
+
+Fisiere cu cele mai multe taguri RO lipsa din EN (flexibil):
+   62  cartea-creatiei.html
+   26  ganduri-din-colturile-memoriei.html   (27 in realitate: RO 38 e imperecheat gresit cu EN 27, vezi verificarea)
+    8  calitatile-unui-lider-luciditatea-si-profunzimea-judecatii.html
+    7  ganduri-din-colturile-memoriei-III.html
+    6  marturisiri-discrete-III.html
+  102 fisiere au exact 1 tag lipsa, 28 au 2-3, 8 au peste 3.
+
+Verificate manual (corecte): GASCA/BABA OARBA/COCO CHANNEL (fisierele model); arta-intre-om-si-creatie RO 9 si 15;
+acceptare-totala-in-indefinit RO 16; amin RO 31 (propozitie in engleza ramasa in RO); reordonarile din
+adaosuri-III, magicianul-IV, o-noua-tentativa-de-definire-a-leadershipului, pe-curand-eu-insumi, in-apararea-acuzatului;
+toate cele 43 de perechi suspecte din prima rulare -> "VERIFICARE PERECHI SUSPECTE.txt" (10 corecte, 10 fara nimic
+lipsa, 2 ascund un paragraf netradus, 1 fisier de verificat manual, 3 corecturi de continut in EN, 17 din articole
+fara traducere).
+
+Corecturi de continut gasite la verificare (de facut de mana in EN):
+   - omul-prins-in-sfera-fortelor-ademenitoare + tipetele-mistuitoare-ale-mieilor: nota EN "Flawless (2007)",
+     articolul e despre Lecter / Silence of the Lambs (1991), ca in RO.
+   - placerea-de-a-realiza-cu-mana-mea-degringolada EN 4: traducere trunchiata + text strain "On December 01, 2024".
+   - citate-celebre-despre-leadership: citatele sunt numerotate si ordonate diferit in RO (47) si EN (51);
+     raportul pe acest fisier nu e de incredere, se verifica citat cu citat.
+   - calitatile-unui-lider-integritatea-launtrica RO 28-29 si ganduri-din-colturile-memoriei RO 38: netraduse,
+     dar imperecheate gresit cu paragrafe EN vechi fara corespondent (EN 26, respectiv EN 27).
+
+Fisierele de iesire din fiecare folder "Rezultate comparatii site - ...":
+  rezultate.txt   raportul pe fiecare fisier (statistici + cost mediu, WRONG, doar in EN, alta ordine, clasa diferita,
+                  suspecte) si, la sfarsit, lista fisierelor RO cu link EN gresit
+  aliniere.txt    tabelul complet RO <-> EN cu costul fiecarei perechi
+  Fisierele cu cel putin un tag fara corespondent au titlul marcat: "---------Fișier: nume.html ------- PROBLEMA----------".
+  Fisierele EN combinate (EN + paragrafele RO lipsa) nu se mai scriu implicit; doar cu optiunea --merge.

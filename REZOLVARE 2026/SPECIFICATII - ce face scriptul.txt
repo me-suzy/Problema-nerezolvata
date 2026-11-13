@@ -1,0 +1,140 @@
+SPECIFICATII: ce urmaresc prin scriptul compara_taguri.py
+=========================================================
+
+1. PROBLEMA
+-----------
+Am un site cu articole in romana (folderul ro\) si traducerile lor in engleza (folderul en\).
+Fiecare articol este un fisier HTML. Textul articolului se afla intre marcajele:
+
+    <!-- ARTICOL START -->
+    ...
+    <!-- ARTICOL FINAL -->
+
+si este format din paragrafe <p>. In timp, unele paragrafe din RO au fost adaugate sau modificate,
+fara ca traducerea EN sa fie actualizata. Vreau sa gasesc, pentru fiecare articol, PARAGRAFELE RO
+CARE NU AU CORESPONDENT IN EN (le numesc "WRONG TAGS"), ca sa stiu exact ce mai trebuie tradus.
+
+Nu pot compara textele cuvant cu cuvant (sunt limbi diferite) si nu pot folosi un traducator automat.
+Comparatia trebuie sa se faca dupa STRUCTURA paragrafelor.
+
+
+2. CE SE COMPARA: identificatorii fiecarui paragraf
+---------------------------------------------------
+Se iau in calcul doar tagurile <p class="text_obisnuit"> si <p class="text_obisnuit2"> dintre marcaje.
+Fiecare tag primeste trei identificatori:
+
+  Numarul   - pozitia tagului in fisier (1, 2, 3, ...). Tagurile goale se sar, dar numerotarea ramane.
+  Litera    - tipul tagului, dupa structura HTML:
+                A = <p class="text_obisnuit"> care contine <span class="text_obisnuit2">
+                B = <p class="text_obisnuit2">
+                C = <p class="text_obisnuit"> fara span
+  Grecescul - lungimea, dupa numarul de cuvinte:
+                α (alfa)  = sub 7 cuvinte
+                β (beta)  = 7-14 cuvinte
+                γ (gamma) = peste 14 cuvinte
+
+Exemplu de identificator: 5(C)(α) = al cincilea tag, de tip C, sub 7 cuvinte.
+
+Regula de baza: un paragraf RO si traducerea lui EN au aceeasi litera si, de regula, acelasi grecesc
+(traducerea pastreaza aproximativ lungimea, punctuatia, numerele, numele proprii).
+
+
+3. CE VREAU SA GASEASCA SCRIPTUL
+--------------------------------
+Pentru o pereche de fisiere (RO, EN):
+
+  a) numarul de taguri de fiecare tip, in RO si in EN, si diferenta pe fiecare tip;
+  b) lista tagurilor RO care nu au corespondent in EN (WRONG TAGS), cu numarul, litera si HTML-ul lor;
+  c) lista tagurilor EN care nu au corespondent in RO (paragrafe vechi, sterse din RO);
+  d) la cerere (optiunea --merge), un fisier EN "combinat": fisierul EN in care tagurile RO lipsa sunt
+     inserate la locul lor, in ordinea din RO. Implicit scriptul NU scrie fisiere HTML: el doar
+     analizeaza fisierele din ro\ si en\, nu le modifica si nu le copiaza.
+  e) in rapoarte, fisierele care au cel putin un tag fara corespondent (in RO sau in EN) sau un link EN
+     gresit au titlul marcat, ca sa fie usor de gasit:
+         ---------Fișier: nume.html ------- PROBLEMA----------
+
+Cerinta esentiala: scriptul trebuie sa GASEASCA SINGUR tagurile lipsa, pe cale matematica / de
+structura. NU are voie sa contina cuvinte-cheie, texte sau pozitii ale tagurilor gresite (de ex. sa
+caute "GASCA" sau "BABA OARBA"). Trebuie sa mearga pe orice pereche de fisiere, nu doar pe cele model.
+
+
+4. CAZUL GREU, care a facut ca vechile incercari sa esueze
+----------------------------------------------------------
+Compararea secventiala (tagul RO curent cu tagul EN curent, elimini la prima nepotrivire) nu merge
+cand doua taguri RO vecine au ACEIASI identificatori. In fisierele model:
+
+    RO 11(B)(γ)  BABA OARBA Produsul pe care il promovezi ...     <- in plus (netradus)
+    RO 12(B)(γ)  Leadership: Produsul pe care il promovezi ...    <- tradus (EN 10)
+
+Comparatia secventiala il imperecheaza pe 11 cu EN 10 si il declara gresit pe 12, exact invers.
+Vreau ca scriptul sa aleaga perechea corecta privind TOATE tagurile dinainte si dupa (alinierea cu
+cost total minim pe tot articolul), nu doar vecinii imediati.
+
+
+5. REZULTATUL ASTEPTAT PE FISIERELE MODEL
+-----------------------------------------
+Fisiere: atrageti-clientii-ca-un-magnet.html (RO) si do-you-attract-clients-like-a-magnet.html (EN).
+
+    Tag-uri in RO: {'A': 2, 'B': 6, 'C': 9}
+    Tag-uri in EN: {'A': 2, 'B': 4, 'C': 8}
+    Diferenta pentru tag-uri de tip A: 0
+    Diferenta pentru tag-uri de tip B: 2
+    Diferenta pentru tag-uri de tip C: 1
+
+    In RO exista in plus fata de EN urmatoarele: 2 taguri de tipul (B) si 1 tag de tipul (C)
+
+    Tag-uri care nu au corespondent in EN (WRONG TAGS):
+    5.C  <p class="text_obisnuit">GASCA ESTE ACASA</p>
+    11.B <p class="text_obisnuit2">BABA OARBA Produsul pe care il promovezi ...</p>
+    17.B <p class="text_obisnuit2">COCO CHANNEL Locatia unui produs poate influenta ...</p>
+
+Exact aceste trei taguri, nimic in plus, nimic in minus. (Verificare: python test_2_html.py)
+
+
+6. RULAREA PE TOT SITE-UL
+-------------------------
+Scriptul trebuie sa mearga si pe foldere intregi (ro\ si en\, aproape 2000 de fisiere):
+  - perechea EN a unui fisier RO se ia din sectiunea <!-- FLAGS --> a fisierului RO
+    (link-ul cu steagul EN: href=".../en/xxx.html"); daca lipseste, se incearca acelasi nume;
+  - fisierele RO fara pereche EN si fisierele fara marcaje ARTICOL se raporteaza, nu opresc rularea;
+  - un fisier stricat (encoding, HTML gresit) nu opreste rularea; se scrie in erori.txt;
+  - la final: un singur rezultate.txt cu raportul fiecarui fisier, aliniere.txt cu toate perechile
+    si costul lor, si totalul de taguri lipsa (fisierele EN combinate doar cu --merge).
+
+
+7. CERINTE SUPLIMENTARE, aparute din datele reale
+-------------------------------------------------
+  a) Aceeasi traducere, alta clasa CSS. Pe site, cel mai des, paragraful exista in EN, dar cu alta
+     litera (RO text_obisnuit2, EN text_obisnuit). Regula stricta il raporteaza de doua ori. Vreau o
+     optiune (--tip-flexibil) care sa imperecheze asemenea paragrafe si sa le listeze separat, la
+     "Perechi cu clasa diferita", ca sa pot corecta clasa, nu sa traduc din nou.
+  b) Paragraf mutat. Daca paragraful exista in EN, dar pe alta pozitie (apropiata), vreau sa fie
+     raportat la "Perechi in alta ordine", nu ca lipsa. Regula sa fie prudenta: mai bine o
+     reordonare ratata (ramane vizibila ca WRONG + "doar in EN") decat o pereche falsa care ascunde
+     un paragraf netradus.
+  c) Perechi suspecte. Perechile acceptate, dar cu lungimi foarte diferite, sa fie listate separat,
+     ca sa le pot citi eu.
+  d) Link EN gresit. Daca fisierul EN indicat in FLAGS este traducerea ALTUI articol (steagul RO din
+     fisierul EN trimite la alt fisier RO), perechea nu se compara si fisierul este listat separat:
+     articolul RO nu are traducere deloc.
+  e) Cost mediu pe fisier. Un cost mediu mare al perechilor inseamna ca EN-ul este, de fapt, alt text
+     (chiar daca link-urile sunt corecte); sa apara in statistici.
+
+
+8. CE NU CER (limite acceptate)
+-------------------------------
+  - Scriptul nu intelege sensul textului. Doua paragrafe fara legatura, dar cu aceeasi structura si
+    lungime, pot fi imperecheate gresit; de aceea exista lista de perechi suspecte, de citit manual.
+  - Un paragraf RO despartit in doua in EN (sau invers) apare ca pereche suspecta plus un WRONG /
+    "doar in EN" fals.
+  - Liste de citate numerotate si ordonate diferit in RO si EN nu pot fi comparate pe pozitie.
+
+
+9. CRITERII DE ACCEPTARE
+------------------------
+  - Python 3 standard, fara librarii externe (fara BeautifulSoup).
+  - Fara cuvinte-cheie sau pozitii hardcodate; acelasi cod pentru orice pereche de fisiere.
+  - Pe fisierele model: exact 5.C, 11.B, 17.B.
+  - Pe exemplul mic din "1. Specificatii.txt" (9 taguri RO, 6 taguri EN): tagurile 1, 5, 9 si
+    fisierul combinat identic cu OUTPUT-ul din specificatii.
+  - Testele automate (python test_compara_taguri.py) trec.

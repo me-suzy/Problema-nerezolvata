@@ -1,0 +1,99 @@
+Verificarea manuala a celor 43 de perechi suspecte (cost >= 1.5) din Rezultate comparatii site - tip-flexibil (13 noiembrie 2026)
+=====================================================================================================
+
+Fiecare pereche a fost citita integral in fisierul RO si in fisierul EN, impreuna cu paragrafele vecine
+(scriptul scratch a tiparit alinierea +/- 2 pozitii). Rezultatul, pe categorii:
+
+A. Traducere corecta; costul mare vine doar din punctuatie, numere sau clasa CSS diferita   (10 perechi)
+   - calitatile-unui-lider-integritatea-launtrica   RO 19 <-> EN 18   (C vs B + punctuatie)
+   - calitatile-unui-lider-maretia-sufleteasca      RO 18 <-> EN 18   (RO reformulat, EN are "P.S.")
+   - ciclul-de-viata-al-leadershipului              RO 4 <-> EN 4, RO 11 <-> EN 8   (dialog tradus liber)
+   - clopotul-de-sticla-al-lui-empedocle            RO 2 <-> EN 2
+   - doi-artisti-ar-actiona-un-singur-creier...     RO 4 <-> EN 4     ("12 si 8 minute" vs "12:00 and 8:00 p.m.")
+   - evitati-situatiile-riscante                    RO 2 <-> EN 2     ("Ora 3:20" vs "3: 20 a.m.")
+   - fundamentul-unei-orientari-de-viitor           RO 2 <-> EN 2     (2.000 vs 2,000)
+   - ioana-sarah-VI                                 RO 6 <-> EN 6
+   - un-memento-al-vremurilor-demult-apuse          RO 6 <-> EN 6     ("!" vs ",")
+   => nimic de facut.
+
+B. Paragrafe unite diferit in RO si EN; nimic lipsa, dar vecinul raportat WRONG / "doar in EN" este alarma falsa   (9 perechi)
+   - cartea-de-nisip  RO 18<->EN 19, RO 25<->EN 26, RO 79<->EN 84, RO 88<->EN 93, RO 199<->EN 206
+       In RO, doua aforisme stau in acelasi <p>, despartite de "-------------" (129 din 230 de taguri RO).
+       In EN, in 7 locuri, cele doua sunt in <p> separate. Cele 7 "doar in EN" (18, 27, 30, 68, 83, 94, 201)
+       sunt false; fisierul nu are nimic lipsa. (De unificat structura, daca se doreste.)
+   - cum-iti-demonstrezi-maretia                    RO 22 <-> EN 22   EN 22 contine si RO 23 -> RO 23 "WRONG" e fals
+   - ioana-sarah                                    RO 3 <-> EN 3     EN 3 contine si RO 4   -> RO 4 "WRONG" e fals
+   - singur-in-marele-necunoscut-al-leadershipului  RO 34 <-> EN 33   EN 33 = RO 33 + RO 34  -> RO 33 "WRONG" e fals
+   - soare-pentru-recolta-ta                        RO 26 <-> EN 25   EN 25 = RO 25 + RO 26  -> RO 25 "WRONG" e fals
+   => 4 taguri WRONG si 7 "doar in EN" de scazut din liste; traducerea exista.
+
+C. Pereche inversata   (1 pereche)
+   - calitatile-unui-lider-carisma                  RO 17 <-> EN 17   de fapt RO 16 = EN 17 si RO 17 = EN 16
+       (cele doua paragrafe sunt in ordine inversa in EN). Nimic lipsa.
+
+D. Pereche falsa care ASCUNDE un paragraf netradus   (2 perechi)
+   - calitatile-unui-lider-integritatea-launtrica   RO 28 <-> EN 26
+       RO 28 ("Leadershipul atinge impactul maxim...") nu este tradus; EN 26 ("Direct your attention more to
+       who you really are.") este un paragraf vechi fara corespondent RO. Corect: RO 28 si RO 29 lipsesc din EN.
+   - ganduri-din-colturile-memoriei                 RO 38 <-> EN 27
+       RO 38 ("Inspiratia vine din clipa...") nu este tradus; EN 27 ("Many people raise their importance...")
+       nu are corespondent RO. Fisierul are deci 27 de paragrafe lipsa, nu 26.
+   => 2 taguri WRONG de ADAUGAT la liste.
+
+E. Lista in alta ordine; comparatia pe pozitie nu e de incredere   (1 pereche)
+   - citate-celebre-despre-leadership               RO 46 <-> EN 48
+       Citatele sunt numerotate si ordonate diferit in RO (47 citate) si EN (51 citate):
+       RO 38 = EN 41, RO 39 = EN 45, RO 40 = EN 46, RO 42 = EN 47, RO 44 = EN 48, RO 45 = EN 49,
+       RO 46 = EN 50, RO 47 = EN 51. Numerele identice din text ("Citatul nr 46" / "Quote nr. 46") au tras
+       alinierea pe pozitie, cu costuri mici (0.16-0.39) pentru perechi gresite.
+   => fisierul se verifica citat cu citat, manual; raportul lui nu e de folosit.
+
+F. Continut diferit in traducere; de corectat in EN   (3 perechi)
+   - omul-prins-in-sfera-fortelor-ademenitoare      RO 25 <-> EN 25
+   - tipetele-mistuitoare-ale-mieilor               RO 27 <-> EN 27
+       Nota RO: "The Silence of the Lambs (1991)"; nota EN: "Flawless (2007)". Ambele articole vorbesc de
+       Lecter / Clarice, deci nota EN trimite la alt film decat cel din articol.
+   - placerea-de-a-realiza-cu-mana-mea-degringolada RO 4 <-> EN 4
+       Traducerea EN este trunchiata (lipsesc pince-nez-ul, doctorul Smirnov, gradinarul-popa) si contine
+       un text strain: "On December 01, 2024".
+
+G. EN-ul comparat este ALT articol   (17 perechi, 11 fisiere)
+   cum-descoperi-rostul-unei-lumi-ce-se-repeta (RO 3, 12), fiat-iustitia (15), habajdir (17, 19),
+   heroes-intus (2, 6), labor-sine-teste (2, 12, 19), legea-deconspirarii (22), legea-suprema-a-creatiei (8),
+   prin-foc-si-sabie (12), scala-trium-nominum (4, 14), signa-divinae-vocationis (8),
+   supletea-deosebita-a-constructiei-de-montaj (5).
+   Cauza, la 10 din 11: articolul RO este nou, iar link-ul EN din sectiunea FLAGS a fost copiat de la alt
+   articol (ex. fiat-iustitia.html trimite la en/sidus-verbum.html, care este traducerea lui sidus-verbum.html).
+   La supletea-deosebita... link-urile sunt reciproce si titlul EN e tradus, dar corpul articolului EN este
+   alt text (despre Zedekiah), deci fisierul EN are continut gresit.
+   => aceste articole RO nu au traducere; WRONG-urile si "doar in EN"-urile lor erau zgomot.
+
+Concluzie pe cele 43: 10 corecte, 10 fara nimic lipsa (B + C), 2 ascund cate un paragraf netradus (D),
+1 fisier de verificat manual (E), 3 corecturi de continut in EN (F), 17 perechi din articole fara traducere (G).
+
+
+Ce s-a schimbat in script in urma verificarii
+---------------------------------------------
+1. Controlul link-ului (exact, nu euristic): in modul batch, pentru fiecare pereche se citeste steagul RO din
+   fisierul EN; daca trimite la ALT fisier RO, EN-ul este traducerea altui articol, perechea nu se compara si
+   este listata la sfarsit ("Fisiere RO al caror link EN duce la traducerea ALTUI articol"). In modul cu doua
+   fisiere, raportul primeste un avertisment "ATENTIE: ...". Pe site: 17 fisiere RO (16 articole + pagina
+   cum-arata-imagini-robineti-centrala-termica-ariston.html), toate cu fisierul RO "adevarat" al EN-ului existent:
+     cum-descoperi-rostul-unei-lumi-ce-se-repeta, clepsidra-care-sfideaza-timpul, labor-sine-teste, heroes-intus,
+     principiul-dominoului, legea-suprema-a-creatiei, habajdir, scala-trium-nominum, signa-divinae-vocationis,
+     legea-deconspirarii, sub-custodia-dei, profetia-ghicitoarei-din-desert, cartea-pe-care-focul-nu-o-poate-atinge,
+     donum-serotinum, prin-foc-si-sabie, fiat-iustitia.
+   (6 dintre ele nu aveau perechi "suspecte", dar aveau WRONG-uri false: clepsidra 10, profetia 10, principiul 6,
+   cartea-pe-care-focul 5, sub-custodia 3, donum 1.)
+2. "Cost mediu al perechilor RO-EN" in Statistici, pe fiecare fisier. Peste 0.6 inseamna, de regula, alt text:
+   prinde cazul supletea-deosebita (0.96), pe care controlul de link nu-l poate prinde. Singurul fisier peste
+   0.6 care este totusi o traducere reala: maturitatea-este-calea-de-iesire-din-amagirile-copilaresti (0.60,
+   RO completat cu 5 paragrafe noi).
+
+Limite confirmate de verificare
+-------------------------------
+- Alinierea pe lungime nu distinge doua paragrafe fara legatura, dar de lungime apropiata (D, E). Numerele
+  identice din text pot chiar ajuta o pereche gresita (E).
+- Un paragraf RO despartit in doua in EN (sau invers) apare ca pereche suspecta + un WRONG / "doar in EN" fals (B).
+- Perechile suspecte raman de citit; dupa aceasta verificare, cele ramase in Rezultate comparatii site - tip-flexibil sunt doar
+  categoriile A-F de mai sus.
