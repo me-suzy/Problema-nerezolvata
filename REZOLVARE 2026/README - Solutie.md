@@ -16,6 +16,12 @@
 
 ## Cum se rulează
 
+Fără niciun argument (din orice folder sau direct din editor): compară tot site-ul, folderele `Principal\ro` și `Principal\en` (constantele `SITE_RO`, `SITE_EN` de la începutul scriptului), în modul `--tip-flexibil`, cu rezultatele în `Rezultate comparatii site - tip-flexibil\` de lângă script:
+
+```bash
+python compara_taguri.py
+```
+
 O pereche de fișiere:
 
 ```bash

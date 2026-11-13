@@ -93,7 +93,10 @@ Exact aceste trei taguri, nimic in plus, nimic in minus. (Verificare: python tes
 
 6. RULAREA PE TOT SITE-UL
 -------------------------
-Scriptul trebuie sa mearga si pe foldere intregi (ro\ si en\, aproape 2000 de fisiere):
+Scriptul trebuie sa mearga si pe foldere intregi (ro\ si en\, aproape 2000 de fisiere). Rulat fara
+niciun argument (python compara_taguri.py, din orice folder sau din editor), compara direct
+E:\Carte\BB\17 - Site Leadership\Principal\ro cu E:\Carte\BB\17 - Site Leadership\Principal\en, in modul
+flexibil, si scrie rezultatele in "Rezultate comparatii site - tip-flexibil" langa script.
   - perechea EN a unui fisier RO se ia din sectiunea <!-- FLAGS --> a fisierului RO
     (link-ul cu steagul EN: href=".../en/xxx.html"); daca lipseste, se incearca acelasi nume;
   - fisierele RO fara pereche EN si fisierele fara marcaje ARTICOL se raporteaza, nu opresc rularea;

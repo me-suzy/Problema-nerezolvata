@@ -1,3 +1,8 @@
+Rulare fara argumente: compar tot site-ul (--tip-flexibil)
+  RO: E:\Carte\BB\17 - Site Leadership\Principal\ro
+  EN: E:\Carte\BB\17 - Site Leadership\Principal\en
+  rezultate in: E:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\PROBLEMA\Rezultate comparatii site - tip-flexibil
+
 Am găsit 1911 perechi RO-EN; 39 fișiere RO fără pereche EN; 17 fișiere RO al căror link EN duce la traducerea altui articol.
 
 ---------Fișier: 11-metri-patrati.html

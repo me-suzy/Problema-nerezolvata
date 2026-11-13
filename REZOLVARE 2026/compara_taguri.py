@@ -40,14 +40,20 @@ sau de cuvinte-cheie: doar numere, structura si statistica textului.
 
 Utilizare
 ---------
+    python compara_taguri.py
+        fara argumente: compara tot site-ul, folderele SITE_RO si SITE_EN (vezi mai jos),
+        in modul --tip-flexibil, cu rezultatele in folderul "Rezultate comparatii site - tip-flexibil"
+        de langa script
     python compara_taguri.py RO.html EN.html [-o DIR_OUTPUT] [--merge] [-v]
-    python compara_taguri.py --ro-dir d:/3/ro --en-dir d:/3/en -o d:/3/Output
+    python compara_taguri.py --ro-dir d:/3/ro --en-dir d:/3/en -o d:/3/Rezultate
 
 In DIR_OUTPUT se scriu:
-    rezultate.txt      - raportul (acelasi text ca pe ecran)
+    rezultate.txt      - raportul (acelasi text ca pe ecran); fisierele cu taguri fara
+                         corespondent au titlul marcat "------- PROBLEMA----------"
     aliniere.txt       - tabelul complet de aliniere RO <-> EN, cu costuri
-    <nume_EN>.html     - fisierul EN in care tagurile RO fara corespondent au
-                         fost inserate la locul lor (OUTPUT din "1. Specificatii")
+    <nume_EN>.html     - doar cu --merge: fisierul EN in care tagurile RO fara corespondent
+                         au fost inserate la locul lor (OUTPUT din "1. Specificatii")
+Scriptul doar citeste fisierele RO si EN; nu le modifica si nu le copiaza.
 """
 
 import argparse
@@ -60,6 +66,11 @@ import statistics
 import sys
 import unicodedata
 from dataclasses import dataclass, field
+
+# Folderele site-ului, folosite cand scriptul este rulat fara argumente
+SITE_RO = r'E:\Carte\BB\17 - Site Leadership\Principal\ro'
+SITE_EN = r'E:\Carte\BB\17 - Site Leadership\Principal\en'
+SITE_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Rezultate comparatii site - tip-flexibil')
 
 START_MARK = '<!-- ARTICOL START -->'
 END_MARK = '<!-- ARTICOL FINAL -->'
@@ -550,6 +561,16 @@ def main(argv=None):
         sys.stdout.reconfigure(encoding='utf-8')
     except Exception:
         pass
+
+    if not any((args.ro, args.en, args.ro_dir, args.en_dir)):
+        # fara argumente: tot site-ul, in modul flexibil
+        if not (os.path.isdir(SITE_RO) and os.path.isdir(SITE_EN)):
+            ap.error(f'nu gasesc folderele site-ului:\n  {SITE_RO}\n  {SITE_EN}\n'
+                     f'(schimba SITE_RO / SITE_EN la inceputul scriptului sau da --ro-dir si --en-dir)')
+        args.ro_dir, args.en_dir, args.tip_flexibil = SITE_RO, SITE_EN, True
+        args.output_dir = args.output_dir or SITE_OUT
+        print(f"Rulare fara argumente: compar tot site-ul (--tip-flexibil)\n"
+              f"  RO: {SITE_RO}\n  EN: {SITE_EN}\n  rezultate in: {args.output_dir}\n")
 
     if args.ro_dir and args.en_dir:
         pairs, missing, mismatched = find_pairs(args.ro_dir, args.en_dir)
