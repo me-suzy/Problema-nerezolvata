@@ -13,6 +13,7 @@
 | `Rezultate test_2_html/` | aceleași trei fișiere, scrise de `test_2_html.py` |
 | `Rezultate comparatii site - strict/`, `Rezultate comparatii site - tip-flexibil/` | rularea `compara_taguri.py` pe tot site-ul, în modul strict / `--tip-flexibil`: doar `rezultate.txt` și `aliniere.txt`; ce a afișat consola e în fișierele `... - consola.txt`; cifrele în `REZULTATE SITE - sumar.txt` |
 | `VERIFICARE PERECHI SUSPECTE.txt` | verificarea manuală a celor 43 de perechi suspecte din prima rulare, pe categorii |
+| `caz-nou.py`, `CAZ NOU - clauze.txt` | clauze suplimentare peste `compara_taguri.py` (alfabet, diacritice, numere normalizate, link-uri, nume proprii, repetiții, dialog, simboluri), cu un caz de test construit în script; rezultatele în `Rezultate caz-nou/` |
 
 ## Cum se rulează
 

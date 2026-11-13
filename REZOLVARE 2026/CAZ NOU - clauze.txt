@@ -1,0 +1,115 @@
+CAZ NOU: clauze suplimentare de comparare RO-EN (caz-nou.py)
+============================================================
+
+caz-nou.py NU rescrie compararea. El importa compara_taguri.py (alinierea globala cu cost minim,
+identificatorii Numar / Litera / Grecesc, raportul) si inlocuieste doar functia de cost a unei
+perechi: la costul de baza (tip, lungime, punctuatie, numere, MAJUSCULE, cuvinte comune) adauga
+noua clauze noi. In plus, fiecare tag primeste "observatii", tiparite in doua sectiuni noi ale
+raportului:
+    Observații (clauze noi) pe taguri           - ce a gasit fiecare clauza pe fiecare tag
+    Clauze noi active pe perechi                - cat a adaugat (sau a scazut) fiecare clauza la cost
+
+Regula ramane aceeasi ca in scriptul de baza: nicio clauza nu cauta cuvinte anume. Toate numara
+caractere (dupa categoria Unicode), repetitii si potriviri intre cele doua texte.
+
+
+CLAUZELE
+--------
+ 1. ALFABET (W_SCRIPT = 1.5, W_FOREIGN = 0.10 / litera, max 1.0)
+    Literele fiecarui tag sunt numarate pe alfabete: latin, chirilic, grec, arab, ebraic, CJK.
+    - Alfabetul dominant diferit intre RO si EN => perechea costa 1.5 in plus (practic interzisa).
+      Un paragraf ramas in rusa sau un citat grecesc nu pot fi "traducerea" unui paragraf latin.
+    - Litere din alt alfabet strecurate intr-un text latin (ex. "Lеadеrship" scris cu "е"
+      chirilic, care arata identic cu "e" latin) => observatie + 0.10 per litera.
+      Astfel se prind textele copiate din surse cu caractere amestecate.
+
+ 2. DIACRITICE (doar observatii)
+    Se numara a/i/s/t romanesti: ă â î ș ț, inclusiv variantele vechi cu sedila ş ţ.
+    - Tag EN cu >= 2 diacritice romanesti => "paragraf netradus?" (textul RO a ramas in EN).
+    - Tag RO de >= 15 cuvinte, latin, cu 0 diacritice => "text in alta limba?" (o propozitie in
+      engleza ramasa in RO, cum s-a gasit in amin.html pe site).
+
+ 3. IDENTIC (prag IDENTIC = 80%)
+    Daca cel putin 80% din cuvintele (>= 3 litere, fara accente) ale tagului mai scurt apar si in
+    celalalt tag, RO si EN sunt acelasi text. Perechea e corecta ca aliniere, dar traducerea
+    lipseste; se marcheaza "EN = RO, netradus".
+
+ 4. NUMERE NORMALIZATE (foloseste W_NUM = 0.5 al scriptului de baza)
+    Scriptul de baza compara numerele asa cum sunt scrise, deci 2.000 (RO) si 2,000 (EN) par
+    diferite, iar "al XVI-lea" nu are nicio cifra. Clauza normalizeaza:
+        2.000 = 2,000 = 2000          (separatorii de mii sunt scosi)
+        3:20 = 3: 20 = {3, 20}        (numerele compuse sunt descompuse)
+        XVI = 16, al XVI-lea = 16th   (cifre romane -> arabe; se cer >= 2 litere, ca sa nu se
+                                       confunde pronumele englez "I")
+    Daca dupa normalizare numerele coincid, penalizarea pusa de scriptul de baza este returnata
+    (apare cu minus in raport). Daca difera si dupa normalizare, ramane.
+
+ 5. LINK-URI (W_URL = 0.60 / link)
+    URL-urile si adresele de e-mail trebuie sa fie identice in RO si EN. Fiecare link prezent
+    intr-o singura parte costa 0.60 si apare in raport. Pe site, link-ul din RO duce de obicei la
+    articolul RO, iar cel din EN la articolul EN, deci clauza arata exact perechile de verificat.
+
+ 6. NUME PROPRII (W_NAME = 0.15 / nume, max 0.6)
+    Un nume propriu = cuvant cu majuscula urmat de litere mici, precedat de un cuvant cu litere
+    mici (deci nu la inceput de propozitie, nu dupa ":", linie de dialog, ghilimele). Numele
+    (Eisenstein, Prokofiev, Napoleon) trebuie sa supravietuiasca traducerii; fiecare nume prezent
+    intr-o singura parte costa 0.15.
+
+ 7. REPETITII si MARKERE (W_REPEAT = 0.15, W_MARKER = 0.15)
+    - Aceeasi pereche de cuvinte consecutive repetata de >= 3 ori ("BABA OARBA" x6,
+      "STRUTUL IMENS" x3) sau acelasi cuvant cu MAJUSCULE de >= 3 ori, intr-un paragraf de sub
+      80 de cuvinte => "text inserat?". Un singur cuvant obisnuit repetat ("este", "pentru",
+      "your") este normal si nu se numara.
+    - Un sir de 3+ simboluri identice ("+++", "***", "-----") => "siruri de simboluri inserate".
+    Greutatile sunt mici, fiindca scriptul de baza penalizeaza deja MAJUSCULELE si lungimea in
+    plus; clauza serveste in primul rand la OBSERVATIE, ca sa se vada de ce perechea e suspecta.
+
+ 8. DIALOG (W_DIALOG = 0.25)
+    Un paragraf care incepe cu linie de dialog (-, –, —) sau cu ghilimele ar trebui sa inceapa la
+    fel si in traducere. Dialog intr-o parte, narativ in cealalta => +0.25.
+
+ 9. SIMBOLURI (W_SYMBOL = 0.20 / simbol, max 0.6)
+    Emoji, stelute, sageti si alte caractere din categoria Unicode "So" se pastreaza in traducere;
+    diferenta la numarul lor costa 0.20 per simbol.
+
+
+CAZUL DE TEST (python caz-nou.py, fara argumente)
+-------------------------------------------------
+Scriptul construieste doua articole (caz-nou-RO.html, caz-nou-EN.html, 12 taguri fiecare) in
+care fiecare clauza este atinsa de cel putin un tag, le compara si verifica rezultatul:
+
+    RO 1  / EN 1    traducere normala                               pereche buna
+    RO 2  / EN 2    2.000 km, al XVI-lea  vs  2,000 km, 16th        pereche buna (clauza 4 returneaza 2.50)
+    RO 3            paragraf in chirilica, fara traducere           WRONG + "alfabet chirilic"
+    RO 4  / EN 3    "Lеadеrship" cu e chirilic                      pereche + "2 litere din alt alfabet"
+    RO 5  / EN 4    EN ramas in romana                              pereche + "7 diacritice in EN", "identic"
+    RO 6  / EN 5    RO ramas in engleza                             pereche + "RO fara diacritice", "identic"
+    RO 7  / EN 6    link diferit                                    pereche + clauza link-uri (+1.20)
+    RO 8  / EN 7    "+++ STRUTUL IMENS" x3 in RO                    pereche SUSPECTA + repetitii, markere
+          / EN 8    citat in greaca, doar in EN                     doar in EN + "alfabet grec"
+    RO 9  / EN 9    traducere normala                               pereche buna
+    RO 10 / EN 10   dialog in ambele                                pereche buna (clauza 8 tace)
+    RO 11 / EN 11   ★★★ doar in RO                                  pereche + clauza simboluri (+0.60)
+    RO 12 / EN 12   Eisenstein, Prokofiev lipsesc din EN            pereche + clauza nume proprii (+0.30)
+
+Rezultat asteptat si obtinut: WRONG = [3], doar in EN = [8], "REZULTAT CORECT".
+
+
+PE DOUA FISIERE OARECARE
+------------------------
+    python caz-nou.py RO.html EN.html [--tip-flexibil] [-o DIR]
+
+Rapoartele: "Rezultate caz-nou\rezultate.txt" (raportul de baza + cele doua sectiuni noi) si
+"Rezultate caz-nou\aliniere.txt" (tabelul RO <-> EN cu costul fiecarei perechi).
+
+
+LIMITE
+------
+- Detectarea limbii se face doar prin diacritice; un text romanesc scris fara diacritice va fi
+  marcat "text in alta limba?", iar o propozitie engleza scurta (< 15 cuvinte) nu va fi marcata.
+- Cifrele romane sunt recunoscute doar scrise cu majuscule si cu >= 2 litere; un cuvant ca "MIX"
+  este, tehnic, un numar roman valid.
+- Un nume propriu la inceput de propozitie nu este numarat (nu se poate deosebi de majuscula de
+  inceput fara un dictionar), deci clauza 6 vede doar numele din interiorul propozitiilor.
+- Greutatile W_* sunt alese pe cazul de test si pe fisierele model; pe site se ajusteaza dupa
+  verificarea perechilor suspecte, ca in scriptul de baza.
